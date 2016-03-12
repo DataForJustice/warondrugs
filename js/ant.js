@@ -805,7 +805,7 @@ asChart.call (ant.charts.lines.prototype);
 asLines.call (ant.charts.lines.prototype);
 //TODO refactor this.. :)
 ant.charts.map = function (container, width, height) {
-	this.scale = 100;
+	this.scale = 200000;
 	this.translate = [width / 2, height / 2];
 	this.refCenter = [.5, .5];
 	this.translate = [width * this.refCenter [0], height * this.refCenter [1]]; 

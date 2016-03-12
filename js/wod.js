@@ -55,7 +55,7 @@ $(document).ready (function () {
 			maps: { 
 				categorize: function (x, a, d) { 
 					if (a == "grid") { 
-					//	return {"r": 3}
+						return {"r": 3}
 					}
 					console.log (arguments);	
 				},
