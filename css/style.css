@@ -1,0 +1,104 @@
+/* CSS for mobile */
+body {
+	margin: 0 !important;
+	padding: 0 !important; 
+}
+.map path {
+	stroke-width: 0.5px;
+	stroke: red;
+	fill: none;
+}
+path.a1-4 { fill: lightgray; }
+.map path:hover { 
+	fill: red;
+}
+.neighborhoods{
+
+}
+small { display: none; }
+.highlight small { 
+	display: inline; 
+	position: relative; 
+	font-size: .5em;
+
+}
+/* MOVIE CONTAINER */
+#movie {
+	width: 0 !important;
+	max-width: 0 !important;
+	padding: 0;
+	margin: 0;
+}
+#movie div { 
+	position: relative; 
+	top: 50vh;
+	width: 100vw;
+	margin-bottom: 100vh;
+}
+#movie div.short_scene {
+	top: 25vh !important;
+}
+#movie div p {
+	font-size: 1.2em;
+	text-align: justify;
+	padding: 0.5em;
+	padding-right: 1em;
+}
+.highlight .red { 
+	background-color: rgba(255, 0, 0, 0.5);
+	color: black;
+}
+.highlight .purple { 
+	background-color: rgba(193, 144, 212, 0.5);
+	color: black;
+}
+#intro { 
+	height: 100%;
+	margin-bottom: 0 !important;
+	top: 0 !important;
+	background-color: red;
+}
+#play_ctrl {
+	border: 1px solid purple;
+	top: 0vh !important;
+	padding: 2em;
+}
+#start { 
+	top: 0 !important;
+}
+#intro h1 {
+	padding: 1.5em;
+	text-align: center;
+}
+/* FIXED CONTAINER */
+#fixed {
+	position: fixed;
+	top: 50vh;
+	left: 0;
+	width: 100%;
+	height: 50%;
+	padding: 0 !important;
+	margin: 0 !important;
+	border: 1px solid red;
+}
+#a_map { 
+	height: 100%;
+}
+/* CSS for tablets */
+@media (min-width: 768px) {
+	#intro { 
+		height: 100vh;
+		background-color: red;
+	}
+	#movie .scene { 
+		margin-bottom: 50%;
+	}
+}
+/* CSS for desktop */
+@media (min-width: 992px) {
+	body { background-color: purple; }
+}
+/* CSS for large devices */
+@media (min-width: 1200px) {
+	body { background-color: yellow; }
+}
