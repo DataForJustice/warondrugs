@@ -1,3 +1,82 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+	<meta charset="UTF-8">
+	<title>The war on drugs</title>
+                <meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>...</title>
+                <script src="/js/jquery.min.js"></script>
+                <script src="/js/d3.min.js"></script>
+		<script src="/js/d3.geo.projection.v0.min.js"></script>
+                <script src="/js/queue.min.js"></script>
+                <script src="/js/topojson.js"></script>
+                <script src="/js/ScrollMagic.min.js"></script>
+                <script src="/js/TweenMax.min.js"></script>
+                <script src="/js/debug.addIndicators.min.js"></script>
+                <script src="/js/animation.gsap.min.js"></script>
+                <script src="/js/ant.js"></script>
+                <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+                <link rel="stylesheet" href="/css/style.css"/>
+	</head>
+	<body>
+	<div id="fixed">
+		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "grid", "quantifier": "categorize", "quantifier_args": "grid"}]'></div>
+	</div>
+	<div id="movie" class="col-md-6" data-movie>
+		<div id="intro" data-control_element="#fixed" data-element_hide>
+			<h1>Lets talk about Boston</h1>
+		</div>
+		<div id="play_ctrl">
+			<a data-control data-control_scroll="movie" data-scroll_to="start">Play</a>
+			<div id="ctrls" style="display: none;">
+			<a id="population_white" data-control data-control_chart="a_map" data-quantify="blockgroups" data-quantifier="population" data-quantifier_args='{race: ["white"]}'>white</a>
+			</div>
+		</div>
+		<div data-control_element="#fixed" data-element_show id="start" class="short_scene"><p>
+		According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
+		</p></div>
+		<div class="short_scene" data-parse="#population_white"><p>
+		Of those, <span class="blue"> 47% are white <small>excl. white hispanics or latinos</small></span>, 
+		</p></div>
+		<div class="short_scene" data-parse="#population_black"><p>
+		<span class="purple">24.4% are black</span> 
+		</p></div>
+		<div class="short_scene"><p>
+		and <span class="green">28.8% are other people of color<small>incl. white hispanics or latinos</small></span>. 
+		</p></div>
+		<div><p>
+		This is the City of Boston. As you can see, the city has a segregation problem. Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem.
+		</p></div>
+		<div><p>
+		One way to look at inequality in our city is through the lens of policing, and in particular, policing related to drugs.
+		</p></div>
+		<div><p>
+		In Boston, as elsewhere in the country, most police work relates to our decades old, failed, costly drug prohibition policy. Using data from the City of Boston’s open data portal, combined with census data showing racial segregation, we are able to map how Boston police officers fight the drug war in our city. The results are striking, and call for action.
+		</p></div>
+		<div><p>
+		As you can see on the map, the vast majority of drug investigations and arrests occur in neighborhoods where people of color live. The whiter areas of the city see far less drug war policing. 
+		</p></div>
+		<div><p>
+		Why is that? Do white people use and sell drugs at lower rates than people of color? Not so fast.
+		</p></div>
+		<div><p>
+		According to the Brookings Institution, a Washington D.C. think tank, white people nationwide use and sell drugs at rates equal to or higher than their Black and brown neighbors.
+		</p></div>
+		<div><p>
+		Whites were about 45 percent more likely than blacks to sell drugs in 1980, according to an analysis of the National Longitudinal Survey of Youth by economist Robert Fairlie. This was consistent with a 1989 survey of youth in Boston. My own analysis of data from the 2012 National Survey on Drug Use and Health shows that 6.6 percent of white adolescents and young adults (aged 12 to 25) sold drugs, compared to just 5.0 percent of blacks (a 32 percent difference).
+		</p></div>
+		<div><p>
+		In his book CHASING THE SCREAM, journalist Johann Hari describes a conversation he had with a former police officer about why police target Black and Brown people in the war on drugs, much more than they do white people.
+		</p></div>
+		<div><p>
+		Matthew Fogg is one of the most decorated police officers in the United States, responsible for tracking down more than three hundred of the most-wanted felons in the country—from murderers to rapists to child molesters. But he was bewildered as to why his force only ever goes to black neighborhoods to bust people for drugs. He went to see his boss to suggest they start mounting similar raids in white neighborhoods.
+		</p></div>
+		<div><p>
+		He explained in a speech that his superior officer told him: “Fogg, you know you’re right they are using drugs there [but] you know what? If we go out and we start targeting those individuals, they know judges, they know lawyers, they know politicians, they know all of the big folks in government. If we start targeting them, and their children, you know what’s going to happen? We’re going to get a phone call and they’re going to shut us down. You know that, Fogg? You know what’s going to happen? There goes your overtime. There’s the money that you’re making. So let’s just go after the weakest link. Let’s go after those who can’t afford the attorneys, those who we can lock up.”
+		</p></div>
+	</div>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/wod.js"></script>
+	</body>
 </html>
