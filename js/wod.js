@@ -3,7 +3,7 @@ $(document).ready (function () {
 		data: {
 			boston: {
 				type: d3.json,
-				url: "/data/boston.json",
+				url: "data/boston.json",
 				id: "boston",
 				key: "Boundary",
 				enumerator: "geometries",
@@ -11,7 +11,7 @@ $(document).ready (function () {
 			},
 			blockgroups: {
 				type: d3.json,
-				url: '/data/blockgroups.json',
+				url: 'data/blockgroups.json',
 				id: "blockgroups",
 				key: "stdin",
 				enumerator: "geometries",
@@ -19,7 +19,7 @@ $(document).ready (function () {
 			},
 			grid: {
 				type: d3.json,
-				url: '/data/grid.json',
+				url: 'data/grid.json',
 				id: "grid",
 				key: "stdin",
 				plot: "points",
@@ -28,7 +28,7 @@ $(document).ready (function () {
 			},
 			neighborhoods: {
 				type: d3.json,
-				url: '/data/neighborhoods.json',
+				url: 'data/neighborhoods.json',
 				id: "neighborhoods",
 				key: "stdin",
 				enumerator: "geometries",
@@ -36,7 +36,7 @@ $(document).ready (function () {
 			},
 			districts: {
 				type: d3.json,
-				url: '/data/police_districts.json',
+				url: 'data/police_districts.json',
 				id: "districts",
 				key: "stdin",
 				enumerator: "geometries"
