@@ -6,22 +6,35 @@
                 <meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
                 <title>...</title>
-                <script src="/js/jquery.min.js"></script>
-                <script src="/js/d3.min.js"></script>
-		<script src="/js/d3.geo.projection.v0.min.js"></script>
-                <script src="/js/queue.min.js"></script>
-                <script src="/js/topojson.js"></script>
-                <script src="/js/ScrollMagic.min.js"></script>
-                <script src="/js/TweenMax.min.js"></script>
-                <script src="/js/debug.addIndicators.min.js"></script>
-                <script src="/js/animation.gsap.min.js"></script>
-                <script src="/js/ant.js"></script>
-                <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-                <link rel="stylesheet" href="/css/style.css"/>
+                <script src="js/jquery.min.js"></script>
+                <script src="js/d3.min.js"></script>
+		<script src="js/d3.geo.projection.v0.min.js"></script>
+                <script src="js/queue.min.js"></script>
+                <script src="js/topojson.js"></script>
+                <script src="js/ScrollMagic.min.js"></script>
+                <script src="js/TweenMax.min.js"></script>
+                <script src="js/debug.addIndicators.min.js"></script>
+                <script src="js/animation.gsap.min.js"></script>
+                <script src="js/ant.js"></script>
+                <link rel="stylesheet" href="css/bootstrap.min.css"/>
+                <link rel="stylesheet" href="css/style.css"/>
 	</head>
 	<body>
+	<div id="ctrls" style="display: none;">
+		<a id="population_reset" data-control_element=".population" data-element_remove_class="poc black white opoc may"></a>
+		<a id="population_may" data-control_element=".population" data-element_add_class="may"></a>
+		<a id="set_may" data-parse="#population_reset,#population_may"></a>
+		<a id="population_white" data-control_element=".population" data-element_add_class="white"></a>
+		<a id="set_white" data-parse="#population_reset,#population_white"></a>
+		<a id="population_black" data-control_element=".population" data-element_add_class="black"></a>
+		<a id="set_black" data-parse="#population_reset,#population_black"></a>
+		<a id="population_opoc" data-control_element=".population" data-element_add_class="opoc"></a>
+		<a id="set_opoc" data-parse="#population_reset,#population_opoc"></a>
+		<a id="population_poc" data-control_element=".population" data-element_add_class="poc"></a>
+		<a id="set_poc" data-parse="#population_reset,#population_poc"></a>
+	</div>
 	<div id="fixed">
-		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "grid", "quantifier": "categorize", "quantifier_args": "grid"}]'></div>
+		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "grid", "quantifier": "categorize", "quantifier_args": "grid"}, {"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}]'></div>
 	</div>
 	<div id="movie" class="col-md-6" data-movie>
 		<div id="intro" data-control_element="#fixed" data-element_hide>
@@ -29,30 +42,87 @@
 		</div>
 		<div id="play_ctrl">
 			<a data-control data-control_scroll="movie" data-scroll_to="start">Play</a>
-			<div id="ctrls" style="display: none;">
-			<a id="population_white" data-control data-control_chart="a_map" data-quantify="blockgroups" data-quantifier="population" data-quantifier_args='{race: ["white"]}'>white</a>
+		</div>
+		<div data-control_element="#fixed" data-element_show id="start" class="short_scene" data-parse="#set_may"><p>
+		According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
+		<div class="tip">
+		Find neighborhoods in the map:
+			<a id="reset_neighborhoods" data-control_element=".neighborhood" data-element_remove_class="highlight"></a>
+			<div class="row">
+
+				<div class="col-xs-4">
+					<ul>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_allston_brighton", "element_add_class": "highlight"}]'>Allston/Brighton</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_back_bay", "element_add_class": "highlight"}]'>Back Bay</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_bay_village", "element_add_class": "highlight"}]'>Bay Village</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_beacon_hill", "element_add_class": "highlight"}]'>Beacon Hill</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_charlestown", "element_add_class": "highlight"}]'>Charlestown</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_chinatown", "element_add_class": "highlight"}]'>Chinatown</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_financial_district_downtown", "element_add_class": "highlight"}]'>Downtown</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_dorchester", "element_add_class": "highlight"}]'>Dorchester</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-4">
+					<ul>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_east_boston", "element_add_class": "highlight"}]'>East Boston</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_fenway_kenmore", "element_add_class": "highlight"}]'>Fenway/Kenmore</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_government_center", "element_add_class": "highlight"}]'>Government Center</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_harbor_islands", "element_add_class": "highlight"}]'>Harbor Islands</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_hyde_park", "element_add_class": "highlight"}]'>Hyde Park</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_jamaica_plain", "element_add_class": "highlight"}]'>Jamaica Plain</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mattapan", "element_add_class": "highlight"}]'>Mattapan</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-4">
+					<ul>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mission_hill", "element_add_class": "highlight"}]'>Mission Hill</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_north_end", "element_add_class": "highlight"}]'>North End</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roslindale", "element_add_class": "highlight"}]'>Roslindale</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roxbury", "element_add_class": "highlight"}]'>Roxbury</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_boston", "element_add_class": "highlight"}]'>South Boston</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_end", "element_add_class": "highlight"}]'>South End</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_end", "element_add_class": "highlight"}]'>West End</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_roxbury", "element_add_class": "highlight"}]'>West Roxbury</a></li>
+					 </ul>
+				</div>
 			</div>
 		</div>
-		<div data-control_element="#fixed" data-element_show id="start" class="short_scene"><p>
-		According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
+		</p>
+		</div>
+		<div class="short_scene" data-parse="#set_white"><p>
+		Of those, <span class="blue"> 47% are white. <br><small>excl. white hispanics or latinos</small></span> 
 		</p></div>
-		<div class="short_scene" data-parse="#population_white"><p>
-		Of those, <span class="blue"> 47% are white <br><small>excl. white hispanics or latinos</small></span>, 
+		<div class="short_scene" data-parse="#set_black"><p>
+		<span class="purple">24.4% are black.</span> 
 		</p></div>
-		<div class="short_scene" data-parse="#population_black"><p>
-		<span class="purple">24.4% are black</span> 
-		</p></div>
-		<div class="short_scene"><p>
-		and <span class="green">28.8% are other people of color<br><small>incl. white hispanics or latinos</small></span>. 
+		<div class="short_scene" data-parse="#set_opoc"><p>
+		and <span class="green">28.8% are other people of color.<br><small>incl. white hispanics or latinos</small></span>
 		</p></div>
 		<div><p>
-		This is the City of Boston. As you can see, the city has a segregation problem. Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem.
+		As you can see, the city has a segregation problem.
+		</p></div>
+		<div class="short_scene" data-parse="#set_white"><p>
+			White people	
+		</div></p>
+		<div class="short_scene" data-parse="#set_poc"><p>
+			People of color
+		</p></div>
+		<div class="short_scene" data-parse="#set_white"><p>
+			White people	
+		</div></p>
+		<div class="short_scene" data-parse="#set_poc"><p>
+			People of color
+		</p></div>
+		<div data-parse="#set_may"><p>
+		Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem.
 		</p></div>
 		<div><p>
 		One way to look at inequality in our city is through the lens of policing, and in particular, policing related to drugs.
 		</p></div>
 		<div><p>
-		In Boston, as elsewhere in the country, most police work relates to our decades old, failed, costly drug prohibition policy. Using data from the City of Boston’s open data portal, combined with census data showing racial segregation, we are able to map how Boston police officers fight the drug war in our city. The results are striking, and call for action.
+		In Boston, as elsewhere in the country, most police work relates to our decades old, failed, costly drug prohibition policy.
+		</p></div>
+		<div><p>Using data from the City of Boston’s open data portal, combined with census data showing racial segregation, we are able to map how Boston police officers fight the drug war in our city. The results are striking, and call for action.
 		</p></div>
 		<div><p>
 		As you can see on the map, the vast majority of drug investigations and arrests occur in neighborhoods where people of color live. The whiter areas of the city see far less drug war policing. 

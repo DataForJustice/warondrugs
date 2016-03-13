@@ -53,14 +53,27 @@ $(document).ready (function () {
 		},
 		quantifiers: {
 			maps: { 
-				categorize: function (x, a, d) { 
+				categorize: function (p, a, d) { 
 					if (a == "grid") { 
-						return {"r": 3}
+						return {"r": 1}
 					}
-					console.log (arguments);	
+					if (a == "neighborhoods") { 
+						var name = p.properties.name.replace(/\//, '_').replace (/\s/,'_').toLowerCase ();
+						return {"class": "neighborhood neighborhood_" + name + " neighborhood_" + p.properties.gid }
+					}
+
+					var x = p.properties, 
+						white = x.w * 100, black = x.b * 100, opoc = x.p * 100, poc = opoc + black, total = (x.w + x.b + x.p),
+						scale = d3.scale.quantize ().domain ([0, 100]).range ([1,2,3,4]),
+						cls = "blockgroup population black_" + scale (black / total) + " white_" + scale (white / total) + " opoc_" + scale (opoc / total) 
+							+ " poc_" + scale (poc / total);
+					console.log (black + " " + total);
+
+					return {"class": cls}
+
 				},
 				population: function (x, args, d) { 
-					return {"class": "a1-4"}
+					//return {"class": "a1-4"}
 				}
 			},
 			bars: { 
