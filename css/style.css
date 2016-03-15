@@ -7,6 +7,10 @@ body {
 	stroke-width: 0.5px;
 	fill: none;
 }
+.map circle {
+	stroke: black;
+	stroke-width: 0.5px;
+}
 .boston path { 
 	stroke: gray;
 }
@@ -14,13 +18,18 @@ body {
 	stroke: lightgray;
 }
 .neighborhood.highlight { 
-	stroke: black;
+	stroke: red;
+	stroke-width:  2px;
+	/*
 	fill: rgba(255,0,0,0.3);
+	*/
 }
 .opoc.opoc_1 { fill: #feedde; } .opoc.opoc_2,.may.opoc_2 { fill: #fdbe85; } .opoc.opoc_3,.may.opoc_3 { fill: #fd8d3c; } .opoc.opoc_4,.may.opoc_4 { fill: #d94701; }
 .white.white_1 { fill: #eff3ff; } .white.white_2,.may.white_2 { fill: #bdd7e7; } .white.white_3,.may.white_3 { fill: #6baed6; } .white.white_4,.may.white_4 { fill: #2171b5; }
 .black.black_1 { fill: #f2f0f7; } .black.black_2,.may.black_2 { fill: #cbc9e2; } .black.black_3,.may.black_3 { fill: #9e9ac8; } .black.black_4,.may.black_4 { fill: #6a51a3; }
 .poc.poc_1 { fill: #edf8e9; } .poc.poc_2 { fill: #bae4b3; } .poc.poc_3 { fill: #74c476; } .poc.poc_4 { fill: #238b45; }
+
+.incidents_1 { fill: #fee5d9 !important; } .incidents_2 { fill: #fcae91; } .incidents_3 { fill: #fb6a4a; } .incidents_4 { fill: #cb181d; }
 
 small { display: none; }
 .highlight small { 
@@ -54,6 +63,11 @@ ul {
 }
 #movie div.short_scene {
 	top: 25vh !important;
+	margin-bottom: 75vh;
+}
+#movie div.last_scene {
+	top: 0;
+	margin-bottom: 50vh;
 }
 #movie div p {
 	font-size: 1.2em;
@@ -98,7 +112,7 @@ ul {
 #a_map { 
 	height: 100%;
 }
-/* CSS for tablets */
+/* CSS for tablets 
 @media (min-width: 768px) {
 	#intro { 
 		height: 100vh;
@@ -108,12 +122,23 @@ ul {
 		margin-bottom: 50%;
 	}
 }
+*/
 /* CSS for desktop */
 @media (min-width: 992px) {
-	body { background-color: purple; }
+	#fixed {
+		left: 50%;
+		top: 0;
+		width: 50%;
+		height: 100%;
+
+	}
+	#movie > div {
+		width: 50vw;
+		font-size: 2em;
+	}
 }
-/* CSS for large devices */
+/* CSS for large devices 
 @media (min-width: 1200px) {
 	body { background-color: yellow; }
 }
-/* charts css */
+*/
