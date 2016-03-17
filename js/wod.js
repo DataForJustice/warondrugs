@@ -50,8 +50,8 @@ $(document).ready (function () {
 						arr = nest.minmean (function (a) { return parseInt (a.values.arr.value); }),
 						inv = nest.minmean (function (a) { return parseInt (a.values.inv.value); }),
 						scale = {
-							arr: d3.scale.sqrt ().domain (arr).range ([0, 4]), 
-							inv: d3.scale.sqrt ().domain (inv).range ([0, 4])
+							arr: d3.scale.sqrt ().domain (arr).range ([1, 6]), 
+							inv: d3.scale.sqrt ().domain (inv).range ([1, 6])
 						}; 
 
 					return {data: nest, scale: scale}
@@ -74,7 +74,7 @@ $(document).ready (function () {
 					if (d.data [gid]) {
 						var val = Math.floor (d.scale [a.type] (d.data [gid][a.type].value));
 						var sc = d3.scale.quantize ().domain (d.scale [a.type].domain ()).range ([1, 2, 3, 4]);
-						return {"r": val, "class": "incidents_" + sc (d.data [gid][a.type].value)}
+						return {"r": val, "class": "incidents incidents_" + sc (d.data [gid][a.type].value)}
 					}
 				},
 				categorize: function (p, a, z) { 

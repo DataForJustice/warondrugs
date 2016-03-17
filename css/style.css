@@ -28,7 +28,7 @@ body {
 .white.white_1 { fill: #eff3ff; } .white.white_2,.may.white_2 { fill: #bdd7e7; } .white.white_3,.may.white_3 { fill: #6baed6; } .white.white_4,.may.white_4 { fill: #2171b5; }
 .black.black_1 { fill: #f2f0f7; } .black.black_2,.may.black_2 { fill: #cbc9e2; } .black.black_3,.may.black_3 { fill: #9e9ac8; } .black.black_4,.may.black_4 { fill: #6a51a3; }
 .poc.poc_1 { fill: #edf8e9; } .poc.poc_2 { fill: #bae4b3; } .poc.poc_3 { fill: #74c476; } .poc.poc_4 { fill: #238b45; }
-
+.incidents { fill-opacity: 0.7; }
 .incidents_1 { fill: #fee5d9 !important; } .incidents_2 { fill: #fcae91; } .incidents_3 { fill: #fb6a4a; } .incidents_4 { fill: #cb181d; }
 
 small { display: none; }
@@ -38,6 +38,10 @@ small { display: none; }
 	font-size: .5em;
 
 }
+blockquote { 
+	text-align: justify;
+}
+.chart { max-width: 100%;}
 .tip { display: none; }
 .highlight .tip { 
 	display: block;
@@ -59,7 +63,7 @@ ul {
 	position: relative; 
 	top: 50vh;
 	width: 100vw;
-	margin-bottom: 100vh;
+	margin-bottom: 50vh;
 }
 #movie div.short_scene {
 	top: 25vh !important;
@@ -136,9 +140,13 @@ ul {
 		width: 50vw;
 		font-size: 2em;
 	}
+	#intro h1 {
+		font-size: 3em;
+	}
 }
 /* CSS for large devices 
 @media (min-width: 1200px) {
 	body { background-color: yellow; }
 }
 */
+
