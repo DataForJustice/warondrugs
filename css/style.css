@@ -41,6 +41,11 @@ small { display: none; }
 blockquote { 
 	text-align: justify;
 }
+ul {
+	list-style-type: circle !important;
+	list-style-position: inside;
+	margin-left: 2.5em;
+}
 .chart { max-width: 100%;}
 .tip { display: none; }
 .highlight .tip { 
@@ -74,7 +79,7 @@ ul {
 	margin-bottom: 50vh;
 }
 #movie div p {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	text-align: center;
 	padding: 0.5em;
 	padding-right: 1em;
