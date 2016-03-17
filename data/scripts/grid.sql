@@ -32,7 +32,7 @@ CREATE TABLE boston_grid AS
 		(SELECT gid FROM neighborhoods n WHERE ST_Contains (n.geom, (a.geom).geom)) as neighborhood,
 		(SELECT gid FROM police_districts d WHERE ST_Contains (d.geom, (a.geom).geom)) as district 
 	FROM 
-		(SELECT ST_Dump (makegrid (geom, 4500)) as geom FROM boston_boundary) a
+		(SELECT ST_Dump (makegrid (geom, 3500)) as geom FROM boston_boundary) a
 ;
 SELECT
 	row_to_json (collection)
