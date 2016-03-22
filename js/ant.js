@@ -87,7 +87,8 @@ Ant.prototype = {
 	scrollLeave: function (element) {
 		//TODO test this code as it was migrated from this.maps to this.charts
 		this.currentElement = null; 
-		var controlMap = $(element).data ("control_map");
+		var data = $(element).data ();
+		var controlMap = data ["control_map"];
 		if (controlMap) {
 			var onClickLayer = $(element).data ("map_click_layer");
 			var onClick = $(element).data ("map_click");
@@ -95,12 +96,36 @@ Ant.prototype = {
 				this.charts [controlMap].topologies [onClickLayer].removeCallback ("click", this.onClick);
 			}
 		}
+		if (data.scroll_leave_parse) { 
+			if (Array.isArray (data.scroll_leave_parse)) { 
+				for (var x in data.scroll_leave_parse) { 
+					this.parseElement (data.scroll_leave_parse [x], false);
+				}
+			}
+			else {
+				var me = this;
+				$(data.scroll_leave_parse).each (function () { me.parseElement.apply (me, [$(this) [0]], false); });
+			}
+			
+		}
 	},
 	scrollEnter: function (element) {
 		$(element.parentNode).children ().removeClass ("highlight");
 		$(element).addClass ("highlight");
 		this.parseElement (element);
 		$(element).find ("form[data-control]").change ();
+		var data = $(element).data ();
+		if (data.scroll_enter_parse) { 
+			if (Array.isArray (data.scroll_enter_parse)) { 
+				for (var x in data.scroll_enter_parse) { 
+					this.parseElement (data.scroll_enter_parse [x], false);
+				}
+			}
+			else {
+				var me = this;
+				$(data.scroll_enter_parse).each (function () { me.parseElement.apply (me, [$(this) [0]], false); });
+			}
+		}
 	},
 	/*
 	* getCallback
@@ -160,7 +185,7 @@ Ant.prototype = {
 			}
 		}
 		/*
-		* Videos
+		* Media
 		*/
 		if (data.control_media) { 
 			var m = this.medium [data.control_media];
@@ -174,10 +199,10 @@ Ant.prototype = {
 					m.pause ();
 					m.currentTime (0);
 				}
-				if (data.media_time) {
-					m.pause ();
-					m.currentTime (data.media_time);
-					m.play ();
+				if (data.media_time !== undefined) {
+				//	m.pause ();
+					m.currentTime (parseInt (data.media_time));
+				//	m.play ();
 				}
 				if (data.media_pause !== undefined) {
 					m.pause ();
@@ -199,6 +224,7 @@ Ant.prototype = {
 			if (data.element_remove_class) { s.removeClass (data.element_remove_class); }
 			if (data.element_hide !== undefined) { s.hide (); }
 			if (data.element_show !== undefined) { s.show (); }
+			if (data.element_toggle !== undefined) { s.toggle (); }
 			if (data.element_attrs) { s.attr (data.element_attrs); 
 				if (data.element_attrs === Object (data.element_attrs)) { 
 					data.element_attrs = JSON.stringify (val);
@@ -253,6 +279,12 @@ Ant.prototype = {
 			var scroll = this.scroll [data.control_scroll];
 			if (data.scroll_to !== undefined) { 
 				scroll.scrollTo (data.scroll_to);
+			}
+			if (data.scroll_to_next !== undefined) { 
+				scroll.scrollToNext ();
+			}
+			if (data.scroll_to_previous !== undefined) { 
+				scroll.scrollToPrev ();
 			}
 		}
 		/*
@@ -415,7 +447,6 @@ Ant.prototype = {
 				x.parseElement.apply (x, [this]);
 			}
 		);
-		//$("[data-subscribe_media]").
 		var cb = function (me) { 
 			return function (r) { 
 				me.addMedia.apply (me, [$(this) [0]]); 
@@ -437,32 +468,39 @@ Ant.prototype = {
 		if (x) { 
 			x.src = $(elm).data ("media_url");
 			var media = new Popcorn (x);
-			media.load ();
-			var cb = function (context, obj, elm) { 
-				return function (e) { 
-					var currentSecond = Math.floor (obj.currentTime ());
-					if (obj.currentSecond != currentSecond) {
-						var parseCb = function (me) { 
-							return function () { 
-								me.parseElement.apply (me, [$(this) [0]]);
-							} 
-						}
-						console.log (currentSecond);
-						$("[data-subscribe_media='" + elm.id + "'][data-subscribe_time='" + currentSecond + "']").each (parseCb (context));
-						obj.currentSecond = currentSecond;
-
+		} else if (alt) {
+			var media = alt; 
+		}
+		media.load ();
+		var cb = function (context, obj, elm) { 
+			return function (e) { 
+				var currentSecond = Math.floor (obj.currentTime ());
+				if (obj.currentSecond != currentSecond) {
+					var every = [1,2,3,4,5,10,15,20,30,40,45,50,55,60];	
+					var trigg = [];
+					var parseCb = function (me) { 
+						return function () { 
+							me.parseElement.apply (me, [$(this) [0]]);
+						} 
 					}
+					for (var i in every) { 
+						if (currentSecond % every [i] === 0) trigg.push (every [i]);
+					}
+					for (var i in trigg) {  
+						$("[data-subscribe_media='" + elm.id + "'][data-subscribe_every='" + trigg [i] + "']").each (parseCb (context));
+					}
+					//console.log (currentSecond);
+					$("[data-subscribe_media='" + elm.id + "'][data-subscribe_time='" + currentSecond + "']").each (parseCb (context));
+					obj.currentSecond = currentSecond;
 
 				}
-			}
-			media.on ("timeupdate", cb (this, media, elm));
-			//TODO subscribers for play, stop, etc.
 
-			this.medium [id] = media;
-		} else if (alt) { 
-			this.medium [id] = alt;
-			alt.load ();
+			}
 		}
+		media.on ("timeupdate", cb (this, media, elm));
+		//TODO subscribers for play, stop, etc.
+
+		this.medium [id] = media;
 	},
 	chartType: function (chartName) {
 		return this.chartTypes [chartName];
@@ -564,10 +602,44 @@ function Timefy () {
 }
 Timefy.prototype = {
 	constructor: Timefy,
-	init: function () {},
+	_interval: null,
+	_tic: -1,
+	_paused: true,
+	init: function () {
+		this.paused (true);
+		this._tic = -1;
+		this._interval = null;
+	},
 	load: function () {},
-	play: function () {},
-	stop: function () {}
+	play: function () {
+		this.paused (false);
+		if (!this._interval) { 
+			var cb = function (me) { return function () { if (!me.paused.apply (me)) { me._tic++; me.callback.apply (me, ["timeupdate"]); } }} 
+			this._interval = setInterval (cb (this), 1000);	
+		}
+	},
+	currentTime: function (tic) { if (tic !== undefined) { this._tic = tic; } return this._tic;},
+	muted: function () {},
+	pause: function () {  
+		if (!this.paused ()) this.paused (true);
+	},
+	paused: function (paused) { if (paused !== undefined) { this._paused = paused; } return this._paused },
+	stop: function () {
+		clearInterval (this._interval);
+		this.init ();
+	},
+	callbacks: {},
+	on: function (ev, cb) {
+		if (!this.callbacks [ev]) { this.callbacks [ev] = []; }
+		this.callbacks [ev].push (cb);
+	},
+	callback: function (ev) { 
+		if (!this.callbacks [ev]) return;
+		for (cb in this.callbacks [ev]) {
+			var x = this.callbacks [ev] [cb];
+			if (x) x (); //TODO check scopes;
+		}
+	}
 }
 function Chart (container, conf) {
 	return this;
@@ -904,8 +976,6 @@ ant.charts.map = function (container, width, height) {
 			y = (bounds[0][1] + bounds[1][1]) / 2,
 			scale = (context / 100) / Math.max(dx / width, dy / height),
 			translate = [width * this.refCenter [0] - scale * x, height * this.refCenter [1] - scale * y];
-		console.log ("w: " + width + " h:" + height + " rc0:" + this.refCenter [0] + " rc1:" + this.refCenter [1] + " x:" + x + " y:" + y + " scale:" +scale);
-		console.log (selector +" " + Math.max ((dx / width), (dy / height)));
 
 		this.svg
 			.selectAll ("path")
@@ -1097,13 +1167,26 @@ Scenify.prototype = {
 			scene.on ("leave", $.proxy (this.leaveCallback, this));
 			scene.on ("progress", $.proxy (this.progressCallback, this));
 			this.scenes [sceneElement.attr ('id')] = scene;
+			//TODO this adds the scenes by id, make it so that we can access it by index too (for 'next' and 'prev' purposes) 
 
 		}, this));
 		return this;
 	},
 	scrollTo: function (sel) { 
 		this.controller.scrollTo (this.scenes [sel]);
-		this.trigger ("enter", this.scenes [sel]);
+		this.trigger ("enter", this.scenes [sel]); //TODO Verify why I used enter and not scene_enter here... 
+	},
+	/*
+	* Scroll to next and prev require the scenes to have id, otherwise it wont work
+	* TODO: make it work without requiring id
+	*/
+	scrollToNext: function () { 
+		var next = $(this.currentScene.triggerElement ()).next ()
+		this.scrollTo (next.attr ('id'));
+	},
+	scrollToPrev: function () { 
+		var prev = $(this.currentScene.triggerElement ()).prev ()
+		this.scrollTo (prev.attr ('id'));
 	},
 	progressCallback: function (ev) { 
 		if (ev.type == "progress") {
@@ -1112,7 +1195,9 @@ Scenify.prototype = {
 		}
 	},
 	enterCallback: function (ev) { 
+		console.log ("enter scene");
 		var elm = ev.target.triggerElement ();
+		this.currentScene = ev.target;
 		this.trigger ("scene_enter", [elm]);
 	},
 	leaveCallback: function (ev) {

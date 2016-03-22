@@ -21,6 +21,11 @@
 	</head>
 	<body>
 	<div id="ctrls" style="display: none;">
+		<div id="timer" data-media="timer"></div> 
+		<a id="start_timer" data-control data-control_media="timer" data-media_time="0" data-media_play></a>
+		<a id="resume_timer" data-control data-control_media="timer" data-media_play></a>
+		<a id="stop_timer" data-control data-control_media="timer" data-meida_stop></a>
+
 		<a id="population_reset" data-control_element=".population" data-element_remove_class="poc black white opoc may"></a>
 		<a id="population_may" data-control_element=".population" data-element_add_class="may"></a>
 		<a id="set_may" data-parse="#population_reset,#population_may"></a>
@@ -42,15 +47,28 @@
 		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}]'></div>
 	</div>
 	<div id="movie" class="col-md-6" data-movie>
-		<div id="intro" data-control_element="#fixed" data-element_hide>
+		<div id="intro" data-control_element="#a_map" data-element_hide>
 			<h1>Let's talk about Boston</h1>
 		</div>
 		<div id="play_ctrl">
-			<a data-control data-control_scroll="movie" data-scroll_to="start">Start</a>
-			<b>Or scroll down</b>
+			<a data-control data-control_scroll="movie" data-scroll_to="start" data-parse="#start_timer">Start</a>
+			<div id="timer_ctrls" style="display: none;">
+				<a data-subscribe_media="timer" data-subscribe_every="5" data-control_scroll="movie" data-scroll_to_next></a>
+				<!--
+				<a data-subscribe_media="timer" data-subscribe_time="5" data-control_scroll="movie" data-scroll_to="go_white"></a> 
+				<a data-subscribe_media="timer" data-subscribe_time="10" data-control_scroll="movie" data-scroll_to="go_black"></a> 
+				<a data-subscribe_media="timer" data-subscribe_time="15" data-control_scroll="movie" data-scroll_to="go_opoc"></a> 
+				<a data-subscribe_media="timer" data-subscribe_time="20" data-control_scroll="movie" data-scroll_to="go_seg"></a> 
+				-->
+				<a data-subscribe_media="timer" data-subscribe_time="22" data-parse="#set_white"></a> 
+				<a data-subscribe_media="timer" data-subscribe_time="23" data-parse="#set_poc"></a> 
+				<a data-subscribe_media="timer" data-subscribe_time="24" data-parse="#set_white"></a> 
+				<a data-subscribe_media="timer" data-subscribe_time="25" data-parse="#set_poc"></a> 
+
+			</div>
 		</div>
 		<!--- Generated from text.html -->
-	<div data-control_element="#fixed" data-element_show id="start" class="short_scene" data-parse="#set_may"><p>
+	<div data-control_element="#a_map" data-element_toggle id="start" class="short_scene" data-parse="#set_may"><p>
 	According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
 	<div class="tip">
 		Find neighborhoods in the map:
@@ -95,47 +113,38 @@
 	</div>
 </p></div>
 
-<div class="short_scene" data-parse="#set_white"><p>
+<div id="go_white" data-parse="#set_white"><p>
 	Of those, <span class="blue"> 47% are white. <br><small>excl. white hispanics or latinos</small></span> 
 </p></div>
-<div class="short_scene" data-parse="#set_black"><p>
+<div id="go_black" data-parse="#set_black"><p>
 	<span class="purple">24.4% are black.</span> 
 </p></div>
-<div class="short_scene" data-parse="#set_opoc"><p>
+<div id="go_opoc" data-parse="#set_opoc"><p>
 	and <span class="green">28.8% are other people of color.<br><small>incl. white hispanics or latinos</small></span>
 </p></div>
-<div><p>
+<div id="go_seg"><p>
 	As you can see, the city has a segregation problem. Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem.
 </p></div>
-<div><p>
-	
-</p></div>
-<div><p>
+<div id="a_a"><p>
 	One way to look at inequality in our city is through the lens of policing, and in particular, policing related to drugs.
 </p></div>
-<div><p>
-	
-</p></div>
-<div><p>
+<div id="a_b"><p>
 	In Boston, as elsewhere in the country, most police work relates to our decades old, failed, costly drug prohibition policy. Using data from the City of Boston’s <a href="http://data.cityofboston.gov/">open data portal</a>, combined with census data showing racial segregation, we are able to map how Boston police officers fight the drug war in our city. The results are striking, and call for action.
 </p></div>
-<div><p>
-	
-</p></div>
-<div data-parse='[{"parse": "#set_investigations"}, {"parse": "#set_poc"}]'><p>
+<div id="a_c" data-parse='[{"parse": "#set_investigations"}, {"parse": "#set_poc"}]'><p>
 	As you can see on the map, the vast majority of drug <a data-control data-parse="#set_investigations">investigations</a> and <a data-control data-parse="#set_arrests">arrests</a> occur in neighborhoods where <a data-control data-parse="#set_poc"> people of color</a> live. The <a data-control data-parse="#set_white">whiter areas</a> of the city see far less drug war policing. 
 </p></div>
-<div><p>
+<div id="a_d"><p>
 	Why is that? Do white people use and sell drugs at lower rates than people of color? Not so fast.
 </p></div>
-<div><p>
+<div id="a_e"><p>
 	Numerous studies have found that white people nationwide use and sell drugs at rates equal to or higher than their Black and brown neighbors.
 </p></div>
-<div data-control_element="#a_map" data-element_hide><p>
+<div id="a_f" data-control_element="#a_map" data-element_toggle><p>
 	In 2015, for example, the Brookings Institution found:
 	<blockquote>Whites were about <b>45 percent more likely than blacks to sell drugs</b> in 1980, according to an analysis of the National Longitudinal Survey of Youth by economist Robert Fairlie. This was consistent with a 1989 survey of youth in Boston. [Brookings analysis] of data from the 2012 National Survey on Drug Use and Health shows that 6.6 percent of white adolescents and young adults (aged 12 to 25) sold drugs, compared to just 5.0 percent of blacks (a 32 percent difference).</blockquote>
 </p></div>
-<div><p>
+<div id="a_g"><p>
 	Racial disparities have been documented at every step of the criminal punishment system:
 	<ul>
 		<li><a href="https://aclum.org/our-work/aclum-issues/racial-justice/ending-racist-stop-and-frisk/">stop and frisks</a></li>
@@ -153,13 +162,13 @@
 	>>> Show stop and frisk charts
 </p></div>
 -->
-<div><p>
+<div id="a_h"><p>
 	For example, in 2010, while Black people only made up 7.7% of the population in Massachusetts, they accounted for over 25% of marijuana possession arrests. That year, Black people were nearly 4x more likely to be arrested for marijuana possession than whites. 
 	<img src="img/possession_arrest_rates.png" class="chart">
 	<img src="img/racial_disparities.png" class="chart">
 	<small><a href="https://www.aclu.org/sites/default/files/field_document/1114413-mj-report-rfs-rel1.pdf">source</a></small>	
 </p></div>
-<div><p>
+<div id="a_i"><p>
 	Practices like these lead to extremeley troubling racial disparities in incarceration rates in Massachusetts. 
 	<br>
 	&nbsp;
@@ -169,13 +178,13 @@
 	<img src="img/ma_blacks_2010.jpg" class="chart">
 	<small><a href="http://www.prisonpolicy.org/profiles/MA.html">source</a></small>	
 </p></div>
-<div><p>
+<div id="a_j"><p>
 	What explains these racial disparities? 
 </p></div>
-<div><p>
+<div id="a_k"><p>
 	When it comes to the drug war, one reason might surprise you: the survivability of drug prohibition itself.
 </p></div>
-<div><p>
+<div id="a_l"><p>
 	In his book <a href="http://chasingthescream.com/">CHASING THE SCREAM</a>, journalist <a href="https://twitter.com/johannhari101">Johann Hari</a> set out to understand why police target Black and brown people in the war on drugs, much more than they do white people, even though whites use and sell drugs at the same or even higher rates. So he put the question to a police officer named Matthew Fogg. 
 </p></div>
 <!--
@@ -184,14 +193,14 @@
 	Matthew Fogg is one of the most decorated police officers in the United States, responsible for tracking down more than three hundred of the most-wanted felons in the country—from murderers to rapists to child molesters. But he was bewildered as to why his force only ever goes to black neighborhoods to bust people for drugs. He went to see his boss to suggest they start mounting similar raids in white neighborhoods.</blockquote>
 </p></div>
 -->
-<div><p>
+<div id="a_m"><p>
 	Fogg explained that when he asked his superior officer this question, he was told:
 	<blockquote>“Fogg, you know you’re right they are using drugs there [but] you know what? If we go out and we start targeting those individuals, they know judges, they know lawyers, they know politicians, they know all of the big folks in government. If we start targeting them, and their children, you know what’s going to happen? We’re going to get a phone call and they’re going to shut us down. You know that, Fogg? You know what’s going to happen? There goes your overtime. There’s the money that you’re making. So let’s just go after the weakest link. Let’s go after those who can’t afford the attorneys, those who we can lock up.”</blockquote>
 </p></div>
-<div data-control_element="#a_map" data-element_show><p>
+<div id="a_n" data-control_element="#a_map" data-element_toggle data-parse="#set_may"><p>
 &nbsp;
 </p></div>
-<div><p>
+<div id="a_o"><p>
 	And this is one of the reasons why drug war policing in Boston looks like this:
 </p></div>
 	
