@@ -15,16 +15,65 @@
                 <script src="js/TweenMax.min.js"></script>
                 <script src="js/debug.addIndicators.min.js"></script>
                 <script src="js/animation.gsap.min.js"></script>
+		<script src="js/popcorn-complete.min.js"></script>
                 <script src="js/ant.js"></script>
                 <link rel="stylesheet" href="css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="css/style.css"/>
 	</head>
 	<body>
 	<div id="ctrls" style="display: none;">
-		<div id="timer" data-media="timer"></div> 
-		<a id="start_timer" data-control data-control_media="timer" data-media_time="0" data-media_play></a>
+		<audio data-media="audio" id="narration" preload="auto" autobuffer>
+			<source src="narration.mp3" type="audio/mp3"></source>
+		</audio>
+		<a id="recover_status" data-parse=".current_status"></a>
+		<a id="reset_narration" data-control_element=".narration_control" data-element_remove_class="current_status"></a>
+		<a id="start_current_status" data-control_element="#start_narration" data-element_add_class="current_status"></a>
+		<a id="start_narration" class="narration_control" data-control data-control_media="narration" data-media_play data-parse="#reset_narration_status,#start_current_status"></a>
+		<a id="stop_narration" class="narration_control" data-control data-control_media="narration" data-media_stop data-parse="#reset_narration_status"></a>
+		<a id="resume_narration" data-control data-control_media="narration" data-media_play></a>
+
+		<a data-subscribe_media="narration" data-subscribe_time="2" data-control_scroll="movie" data-scroll_to="start"></a>
+		<a id="voice_start" data-control_media="narration" data-media_time="3" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="10" data-control_scroll="movie" data-scroll_to="s_white"></a>
+		<a id="voice_s_white" data-control_media="narration" data-media_time="11" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="19" data-control_scroll="movie" data-scroll_to="s_black"></a>
+		<a id="voice_s_black" data-control_media="narration" data-media_time="20" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="23" data-control_scroll="movie" data-scroll_to="s_opoc"></a>
+		<a id="voice_s_opoc" data-control_media="narration" data-media_time="24" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="30" data-control_scroll="movie" data-scroll_to="view_white"></a>
+		<a id="voice_view_white" data-control_media="narration" data-media_time="31" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="32" data-control_scroll="movie" data-scroll_to="view_poc"></a>
+		<a id="voice_view_poc" data-control_media="narration" data-media_time="33" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="35" data-control_scroll="movie" data-scroll_to="view_white_1"></a>
+		<a id="voice_view_white_1" data-control_media="narration" data-media_time="36" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="37" data-control_scroll="movie" data-scroll_to="view_poc_1"></a>
+		<a id="voice_view_poc_1" data-control_media="narration" data-media_time="38" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="39" data-control_scroll="movie" data-scroll_to="rac_lines"></a>
+		<a id="voice_rac_lines" data-control_media="narration" data-media_time="40" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="43" data-control_scroll="movie" data-scroll_to="a_a"></a>
+		<a id="voice_a_a" data-control_media="narration" data-media_time="44" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="50" data-control_scroll="movie" data-scroll_to="a_b"></a>
+		<a id="voice_a_b" data-control_media="narration" data-media_time="51" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="63" data-control_scroll="movie" data-scroll_to="a_c"></a>
+		<a id="voice_a_c" data-control_media="narration" data-media_time="64" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="68" data-control_scroll="movie" data-scroll_to="a_d"></a>
+		<a id="voice_a_d" data-control_media="narration" data-media_time="69" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="73" data-control_scroll="movie" data-scroll_to="a_e"></a>
+		<a id="voice_a_e" data-control_media="narration" data-media_time="74" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="76" data-control_scroll="movie" data-scroll_to="a_f"></a>
+		<a id="voice_a_f" data-control_media="narration" data-media_time="77" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="78" data-control_scroll="movie" data-scroll_to="a_g"></a>
+		<a id="voice_a_g" data-control_media="narration" data-media_time="79" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="81" data-control_scroll="movie" data-scroll_to="a_f_1"></a>
+		<a id="voice_a_f_1" data-control_media="narration" data-media_time="82" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="83" data-control_scroll="movie" data-scroll_to="a_g_1"></a>
+		<a id="voice_a_g_1" data-control_media="narration" data-media_time="84" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="86" data-control_scroll="movie" data-scroll_to="a_h"></a>
+		<a id="voice_h" data-control_media="narration" data-media_time="87" data-parse="#recover_status"></a>
+
+		<a id="start_timer" data-control data-control_media="timer" data-media_time="0" data-media_play data-control_element="#pause_control" data-element_show></a>
 		<a id="resume_timer" data-control data-control_media="timer" data-media_play></a>
-		<a id="stop_timer" data-control data-control_media="timer" data-meida_stop></a>
+		<a id="stop_timer" data-control data-control_media="timer" data-media_stop data></a>
 
 		<a id="population_reset" data-control_element=".population" data-element_remove_class="poc black white opoc may"></a>
 		<a id="population_may" data-control_element=".population" data-element_add_class="may"></a>
@@ -41,170 +90,84 @@
 		<a id="set_investigations" data-control_chart="a_map" data-quantify="grid" data-quantifier="incidents" data-quantifier_args='{"type": "inv"}'></a>
 		<a id="set_arrests" data-control_chart="a_map" data-quantify="grid" data-quantifier="incidents" data-quantifier_args='{"type": "arr"}'></a>
 	</div>
-	<div id="fixed">
-		<div id="chart_1">
-		</div>
-		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}]'></div>
-	</div>
-	<div id="movie" class="col-md-6" data-movie>
-		<div id="intro" data-control_element="#a_map" data-element_hide>
+	<div id="movie" data-movie>
+		<div id="intro" data-control_element="#a_map" data-element_hide data-control_media="narration" data-media_time="0"e>
 			<h1>Let's talk about Boston</h1>
 		</div>
-		<div id="play_ctrl">
-			<a data-control data-control_scroll="movie" data-scroll_to="start" data-parse="#start_timer">Start</a>
-			<div id="timer_ctrls" style="display: none;">
-				<a data-subscribe_media="timer" data-subscribe_every="5" data-control_scroll="movie" data-scroll_to_next></a>
-				<!--
-				<a data-subscribe_media="timer" data-subscribe_time="5" data-control_scroll="movie" data-scroll_to="go_white"></a> 
-				<a data-subscribe_media="timer" data-subscribe_time="10" data-control_scroll="movie" data-scroll_to="go_black"></a> 
-				<a data-subscribe_media="timer" data-subscribe_time="15" data-control_scroll="movie" data-scroll_to="go_opoc"></a> 
-				<a data-subscribe_media="timer" data-subscribe_time="20" data-control_scroll="movie" data-scroll_to="go_seg"></a> 
-				-->
-				<a data-subscribe_media="timer" data-subscribe_time="22" data-parse="#set_white"></a> 
-				<a data-subscribe_media="timer" data-subscribe_time="23" data-parse="#set_poc"></a> 
-				<a data-subscribe_media="timer" data-subscribe_time="24" data-parse="#set_white"></a> 
-				<a data-subscribe_media="timer" data-subscribe_time="25" data-parse="#set_poc"></a> 
-
-			</div>
-		</div>
-		<!--- Generated from text.html -->
-	<div data-control_element="#a_map" data-element_toggle id="start" class="short_scene" data-parse="#set_may"><p>
-	According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
-	<div class="tip">
-		Find neighborhoods in the map:
-		<a id="reset_neighborhoods" data-control_element=".neighborhood" data-element_remove_class="highlight"></a>
-		<div class="row">
-			<div class="col-xs-4">
+		<div data-control_element="#a_map" data-element_toggle id="start" class="short_scene" data-parse="#set_may,#voice_start"><p>
+		According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
+		</p></div>
+		<div id="s_white" data-parse="#set_white,#voice_s_white"><p>
+			Of those, <span class="blue"> 47% are white. <br><small>excl. white hispanics or latinos</small></span> 
+		</p></div>
+		<div id="s_black" data-parse="#set_black,#voice_s_black"><p>
+			<span class="purple">24.4% are black.</span> 
+		</p></div>
+		<div id="s_opoc" data-parse="#set_opoc,#voice_s_opoc"><p>
+			and <span class="green">28.8% are other people of color.<br><small>incl. white hispanics or latinos</small></span>
+		</p></div>
+		<div id="view_white" data-parse="#set_white,#voice_view_white"><p>
+			<b>White</b>
+		</p></div>
+		<div id="view_poc"data-parse="#set_poc,#voice_view_poc"><p>
+			<b>People of Color</b>
+		</p></div>
+		<div id="view_white_1" data-parse="#set_white,#voice_view_white_1"><p>
+			<b>White</b>
+		</p></div>
+		<div id="view_poc_1"data-parse="#set_poc,#voice_view_poc_1"><p>
+			<b>People of Color</b>
+		</p></div>
+		<div id="rac_lines" data-parse="#set_may,#voice_rac_lines"><p>
+			As you can see, the city is racially segregated.
+		<!--Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem and one example of it is policing related to drugs.-->
+		</p></div>
+		<div id="a_a" data-parse="#voice_a_a"><p>
+			In Boston, as elsewhere in the country, lots of police work relates to drug prohibition.
+		</p></div>
+		<div id="a_b" data-parse="#voice_a_b"><p>
+		Using data from the City of Boston’s <a href="http://data.cityofboston.gov/">open data portal</a>, combined with census data showing racial segregation, we are able to map how Boston police officers fight the drug war in our city.
+		</p></div>
+		<div id="a_c" data-parse="#set_investigations,#set_may,#voice_a_c"><p>
+			This is where police perform drug investigations.
+		</p></div>
+		<div id="a_d" data-parse="#set_arrests,#set_may,#voice_a_d"><p>
+			And this is where police make drug arrests.
+		</p></div>
+		<div id="a_e" data-parse="#voice_a_e"><p>
+			Do you notice a pattern?
+		</p></div>
+		<div id="a_f" data-parse="#set_white,#voice_a_f"><p>
+			White
+		</p></div>
+		<div id="a_g" data-parse="#set_poc,#voice_a_g"><p>
+			People of Color
+		</p></div>
+		<div id="a_f_1" data-parse="#set_white,#voice_a_f_1"><p>
+			White
+		</p></div>
+		<div id="a_g_1" data-parse="#set_poc,#voice_a_g_1"><p>
+			People of Color
+		</p></div>
+		<div id="a_h" data-parse="#voice_a_h">
+			<p>
+			Learn more
+			</p>
+			<div id="faq">
 				<ul>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_allston_brighton", "element_add_class": "highlight"}]'>Allston/Brighton</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_back_bay", "element_add_class": "highlight"}]'>Back Bay</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_bay_village", "element_add_class": "highlight"}]'>Bay Village</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_beacon_hill", "element_add_class": "highlight"}]'>Beacon Hill</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_charlestown", "element_add_class": "highlight"}]'>Charlestown</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_chinatown", "element_add_class": "highlight"}]'>Chinatown</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_financial_district_downtown", "element_add_class": "highlight"}]'>Downtown</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_dorchester", "element_add_class": "highlight"}]'>Dorchester</a></li>
+					<li>Do white people sell or use drugs at lower rates than people of color?</li>
+					<li>What explains racial disparities in drug policing?</li>
+					<li>Are Boston drug arrests uniquely racially disparate?</li> 
+					<li>Do other racial disparities exist in the system?</li>
 				</ul>
-			</div>
-			<div class="col-xs-4">
-				<ul>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_east_boston", "element_add_class": "highlight"}]'>East Boston</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_fenway_kenmore", "element_add_class": "highlight"}]'>Fenway/Kenmore</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_government_center", "element_add_class": "highlight"}]'>Government Center</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_harbor_islands", "element_add_class": "highlight"}]'>Harbor Islands</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_hyde_park", "element_add_class": "highlight"}]'>Hyde Park</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_jamaica_plain", "element_add_class": "highlight"}]'>Jamaica Plain</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mattapan", "element_add_class": "highlight"}]'>Mattapan</a></li>
-				</ul>
-			</div>
-			<div class="col-xs-4">
-				<ul>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mission_hill", "element_add_class": "highlight"}]'>Mission Hill</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_north_end", "element_add_class": "highlight"}]'>North End</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roslindale", "element_add_class": "highlight"}]'>Roslindale</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roxbury", "element_add_class": "highlight"}]'>Roxbury</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_boston", "element_add_class": "highlight"}]'>South Boston</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_end", "element_add_class": "highlight"}]'>South End</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_end", "element_add_class": "highlight"}]'>West End</a></li>
-				 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_roxbury", "element_add_class": "highlight"}]'>West Roxbury</a></li>
-				 </ul>
 			</div>
 		</div>
 	</div>
-</p></div>
-
-<div id="go_white" data-parse="#set_white"><p>
-	Of those, <span class="blue"> 47% are white. <br><small>excl. white hispanics or latinos</small></span> 
-</p></div>
-<div id="go_black" data-parse="#set_black"><p>
-	<span class="purple">24.4% are black.</span> 
-</p></div>
-<div id="go_opoc" data-parse="#set_opoc"><p>
-	and <span class="green">28.8% are other people of color.<br><small>incl. white hispanics or latinos</small></span>
-</p></div>
-<div id="go_seg"><p>
-	As you can see, the city has a segregation problem. Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem.
-</p></div>
-<div id="a_a"><p>
-	One way to look at inequality in our city is through the lens of policing, and in particular, policing related to drugs.
-</p></div>
-<div id="a_b"><p>
-	In Boston, as elsewhere in the country, most police work relates to our decades old, failed, costly drug prohibition policy. Using data from the City of Boston’s <a href="http://data.cityofboston.gov/">open data portal</a>, combined with census data showing racial segregation, we are able to map how Boston police officers fight the drug war in our city. The results are striking, and call for action.
-</p></div>
-<div id="a_c" data-parse='[{"parse": "#set_investigations"}, {"parse": "#set_poc"}]'><p>
-	As you can see on the map, the vast majority of drug <a data-control data-parse="#set_investigations">investigations</a> and <a data-control data-parse="#set_arrests">arrests</a> occur in neighborhoods where <a data-control data-parse="#set_poc"> people of color</a> live. The <a data-control data-parse="#set_white">whiter areas</a> of the city see far less drug war policing. 
-</p></div>
-<div id="a_d"><p>
-	Why is that? Do white people use and sell drugs at lower rates than people of color? Not so fast.
-</p></div>
-<div id="a_e"><p>
-	Numerous studies have found that white people nationwide use and sell drugs at rates equal to or higher than their Black and brown neighbors.
-</p></div>
-<div id="a_f" data-control_element="#a_map" data-element_toggle><p>
-	In 2015, for example, the Brookings Institution found:
-	<blockquote>Whites were about <b>45 percent more likely than blacks to sell drugs</b> in 1980, according to an analysis of the National Longitudinal Survey of Youth by economist Robert Fairlie. This was consistent with a 1989 survey of youth in Boston. [Brookings analysis] of data from the 2012 National Survey on Drug Use and Health shows that 6.6 percent of white adolescents and young adults (aged 12 to 25) sold drugs, compared to just 5.0 percent of blacks (a 32 percent difference).</blockquote>
-</p></div>
-<div id="a_g"><p>
-	Racial disparities have been documented at every step of the criminal punishment system:
-	<ul>
-		<li><a href="https://aclum.org/our-work/aclum-issues/racial-justice/ending-racist-stop-and-frisk/">stop and frisks</a></li>
-		<li><a href="https://www.washingtonpost.com/news/wonk/wp/2013/06/04/the-blackwhite-marijuana-arrest-gap-in-nine-charts/">arrests</a></li>
-		<li><a href="http://www.nyujlpp.org/wp-content/uploads/2014/01/Jones-Give-Us-Free-16nyujlpp919.pdf">bail</a></li>
-		<li><a href="http://www.nytimes.com/2014/07/09/nyregion/09race.html"> charging</a></li>
-		<li><a href="http://www.npr.org/sections/codeswitch/2014/07/17/332075947/study-reveals-worse-outcomes-for-black-and-latino-defendants">pleas and conviction</a></li>
-		<li><a href="https://www.aclu.org/sites/default/files/assets/141027_iachr_racial_disparities_aclu_submission_0.pdf"> sentencing</a></li>
-		<li><a href="http://sentencingproject.org/doc/publications/Prison%20Journal%20-%20racial%20disparity.pdf">incarceration</a></li>
-		<li><a href="http://solitarywatch.com/2013/11/02/prison-segregation-racial-disparities/"> conditions of confinement</a></li>
-		<li><a href="http://www.nccdglobal.org/sites/default/files/publication_pdf/created-equal.pdf"> probation and parole</a></li> 
-	</ul>
-</p></div>
-<!--<div><p>
-	>>> Show stop and frisk charts
-</p></div>
--->
-<div id="a_h"><p>
-	For example, in 2010, while Black people only made up 7.7% of the population in Massachusetts, they accounted for over 25% of marijuana possession arrests. That year, Black people were nearly 4x more likely to be arrested for marijuana possession than whites. 
-	<img src="img/possession_arrest_rates.png" class="chart">
-	<img src="img/racial_disparities.png" class="chart">
-	<small><a href="https://www.aclu.org/sites/default/files/field_document/1114413-mj-report-rfs-rel1.pdf">source</a></small>	
-</p></div>
-<div id="a_i"><p>
-	Practices like these lead to extremeley troubling racial disparities in incarceration rates in Massachusetts. 
-	<br>
-	&nbsp;
-	<img src="img/ma_incrates.jpg" class="chart">
-	<img src="img/ma_whites_2010.jpg" class="chart">
-	<img src="img/ma_hispanics_2010.jpg" class="chart">
-	<img src="img/ma_blacks_2010.jpg" class="chart">
-	<small><a href="http://www.prisonpolicy.org/profiles/MA.html">source</a></small>	
-</p></div>
-<div id="a_j"><p>
-	What explains these racial disparities? 
-</p></div>
-<div id="a_k"><p>
-	When it comes to the drug war, one reason might surprise you: the survivability of drug prohibition itself.
-</p></div>
-<div id="a_l"><p>
-	In his book <a href="http://chasingthescream.com/">CHASING THE SCREAM</a>, journalist <a href="https://twitter.com/johannhari101">Johann Hari</a> set out to understand why police target Black and brown people in the war on drugs, much more than they do white people, even though whites use and sell drugs at the same or even higher rates. So he put the question to a police officer named Matthew Fogg. 
-</p></div>
-<!--
-<div><p>
-	<blockquote>
-	Matthew Fogg is one of the most decorated police officers in the United States, responsible for tracking down more than three hundred of the most-wanted felons in the country—from murderers to rapists to child molesters. But he was bewildered as to why his force only ever goes to black neighborhoods to bust people for drugs. He went to see his boss to suggest they start mounting similar raids in white neighborhoods.</blockquote>
-</p></div>
--->
-<div id="a_m"><p>
-	Fogg explained that when he asked his superior officer this question, he was told:
-	<blockquote>“Fogg, you know you’re right they are using drugs there [but] you know what? If we go out and we start targeting those individuals, they know judges, they know lawyers, they know politicians, they know all of the big folks in government. If we start targeting them, and their children, you know what’s going to happen? We’re going to get a phone call and they’re going to shut us down. You know that, Fogg? You know what’s going to happen? There goes your overtime. There’s the money that you’re making. So let’s just go after the weakest link. Let’s go after those who can’t afford the attorneys, those who we can lock up.”</blockquote>
-</p></div>
-<div id="a_n" data-control_element="#a_map" data-element_toggle data-parse="#set_may"><p>
-&nbsp;
-</p></div>
-<div id="a_o"><p>
-	And this is one of the reasons why drug war policing in Boston looks like this:
-</p></div>
-	
-		<!-- end of text.html -->
+	<div id="fixed">
+		<div id="play_ctrl">
+			<a data-control data-parse="#start_narration">Start</a>
+		</div>
+		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}]'></div>
 	</div>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/wod.js"></script>

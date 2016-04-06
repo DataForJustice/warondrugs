@@ -42,8 +42,10 @@ blockquote {
 	text-align: justify;
 }
 ul {
+	/*
 	list-style-type: circle;
 	list-style-position: inside;
+	*/
 	margin-left: 2.5em;
 }
 .chart { max-width: 100%;}
@@ -55,8 +57,10 @@ ul {
 	padding: 1em;
 }
 ul {
+	/*
 	padding-left: 10px;
 	list-style-type: none;
+	*/
 }
 .tip ul  {
 	padding: 0;
@@ -87,8 +91,8 @@ ul {
 	margin-bottom: 50vh;
 }
 #movie div p {
-	font-size: 1.1em;
-	text-align: center;
+	font-size: 1.5em;
+	text-align: left;
 	padding: 0.5em;
 	padding-right: 1em;
 }
@@ -105,10 +109,6 @@ ul {
 	margin-bottom: 0 !important;
 	top: 0 !important;
 }
-#play_ctrl {
-	top: 0vh !important;
-	padding: 2em;
-}
 #start { 
 	top: 0 !important;
 }
@@ -119,12 +119,20 @@ ul {
 /* FIXED CONTAINER */
 #fixed {
 	position: fixed;
+	background-color: white;
+	border-top: 2px solid gray;
 	top: 50vh;
 	left: 0;
 	width: 100%;
 	height: 50%;
 	padding: 0 !important;
 	margin: 0 !important;
+}
+#play_ctrl { 
+	position: absolute;
+	top: 90%;
+	left: 80%;
+	width: 20%;
 }
 #a_map { 
 	height: 100%;
@@ -141,17 +149,29 @@ ul {
 }
 */
 /* CSS for desktop */
-@media (min-width: 992px) {
+@media (min-width: 566px) {
 	#fixed {
-		left: 50%;
+		border: none;
+		left: 55%;
 		top: 0;
-		width: 50%;
+		width: 45%;
 		height: 100%;
 
+	}
+	#movie > div { 
+		width: 50vw;
+		font-size: 1.3em;
+	}
+}
+@media (min-width: 992px) {
+	#movie { 
+		padding: 15px !important;
 	}
 	#movie > div {
 		width: 50vw;
 		font-size: 2em;
+		padding: 10px;
+		margin-bottom: 25vh;
 	}
 	#intro h1 {
 		font-size: 3em;
