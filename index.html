@@ -26,12 +26,12 @@
 			<source src="narration.mp3" type="audio/mp3"></source>
 		</audio>
 		<a id="recover_status" data-parse=".current_status"></a>
-		<a id="reset_narration" data-control_element=".narration_control" data-element_remove_class="current_status"></a>
+		<a id="update_narration_ui" data-control_element=".narration_control_ui" data-element_toggle></a>
+		<a id="reset_narration_status" data-control_element=".narration_control" data-element_remove_class="current_status"></a>
 		<a id="start_current_status" data-control_element="#start_narration" data-element_add_class="current_status"></a>
 		<a id="start_narration" class="narration_control" data-control data-control_media="narration" data-media_play data-parse="#reset_narration_status,#start_current_status"></a>
-		<a id="stop_narration" class="narration_control" data-control data-control_media="narration" data-media_stop data-parse="#reset_narration_status"></a>
+		<a id="stop_narration" class="narration_control" data-control data-control_media="narration" data-media_pause data-parse="#reset_narration_status"></a>
 		<a id="resume_narration" data-control data-control_media="narration" data-media_play></a>
-
 		<a data-subscribe_media="narration" data-subscribe_time="2" data-control_scroll="movie" data-scroll_to="start"></a>
 		<a id="voice_start" data-control_media="narration" data-media_time="3" data-parse="#recover_status"></a>
 		<a data-subscribe_media="narration" data-subscribe_time="10" data-control_scroll="movie" data-scroll_to="s_white"></a>
@@ -70,6 +70,7 @@
 		<a id="voice_a_g_1" data-control_media="narration" data-media_time="84" data-parse="#recover_status"></a>
 		<a data-subscribe_media="narration" data-subscribe_time="86" data-control_scroll="movie" data-scroll_to="a_h"></a>
 		<a id="voice_h" data-control_media="narration" data-media_time="87" data-parse="#recover_status"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="88" data-media_stop data-parse="#update_narration_ui"></a>
 
 		<a id="start_timer" data-control data-control_media="timer" data-media_time="0" data-media_play data-control_element="#pause_control" data-element_show></a>
 		<a id="resume_timer" data-control data-control_media="timer" data-media_play></a>
@@ -89,12 +90,13 @@
 
 		<a id="set_investigations" data-control_chart="a_map" data-quantify="grid" data-quantifier="incidents" data-quantifier_args='{"type": "inv"}'></a>
 		<a id="set_arrests" data-control_chart="a_map" data-quantify="grid" data-quantifier="incidents" data-quantifier_args='{"type": "arr"}'></a>
+		<a id="clear_grid" data-control_chart="a_map" data-clear="grid"></a>
 	</div>
 	<div id="movie" data-movie>
-		<div id="intro" data-control_element="#a_map" data-element_hide data-control_media="narration" data-media_time="0"e>
+		<div id="intro" data-control_element="#a_map" data-element_hide>
 			<h1>Let's talk about Boston</h1>
 		</div>
-		<div data-control_element="#a_map" data-element_toggle id="start" class="short_scene" data-parse="#set_may,#voice_start"><p>
+		<div data-control_element="#a_map" data-element_show id="start" class="short_scene" data-parse="#set_may,#voice_start"><p>
 		According to the 2010 census, <span class="red">617,594 people</span> live in Boston. 
 		</p></div>
 		<div id="s_white" data-parse="#set_white,#voice_s_white"><p>
@@ -149,23 +151,87 @@
 		<div id="a_g_1" data-parse="#set_poc,#voice_a_g_1"><p>
 			People of Color
 		</p></div>
-		<div id="a_h" data-parse="#voice_a_h">
-			<p>
-			Learn more
-			</p>
-			<div id="faq">
-				<ul>
-					<li>Do white people sell or use drugs at lower rates than people of color?</li>
-					<li>What explains racial disparities in drug policing?</li>
-					<li>Are Boston drug arrests uniquely racially disparate?</li> 
-					<li>Do other racial disparities exist in the system?</li>
+		<div id="a_h" data-parse="#voice_a_h" class="content short_scene">
+			<p><b>Play with the data</b></p>
+			<a id="reset_neighborhoods" data-control_element=".neighborhood" data-element_remove_class="highlight"></a>
+			<div class="">
+				<p>Neighborhoods</p>
+				<div class="col-xs-4">
+					<ul>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_allston_brighton", "element_add_class": "highlight"}]'>Allston/Brighton</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_back_bay", "element_add_class": "highlight"}]'>Back Bay</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_bay_village", "element_add_class": "highlight"}]'>Bay Village</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_beacon_hill", "element_add_class": "highlight"}]'>Beacon Hill</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_charlestown", "element_add_class": "highlight"}]'>Charlestown</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_chinatown", "element_add_class": "highlight"}]'>Chinatown</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_financial_district_downtown", "element_add_class": "highlight"}]'>Downtown</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_dorchester", "element_add_class": "highlight"}]'>Dorchester</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-4">
+					<ul>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_east_boston", "element_add_class": "highlight"}]'>East Boston</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_fenway_kenmore", "element_add_class": "highlight"}]'>Fenway/Kenmore</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_government_center", "element_add_class": "highlight"}]'>Government Center</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_harbor_islands", "element_add_class": "highlight"}]'>Harbor Islands</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_hyde_park", "element_add_class": "highlight"}]'>Hyde Park</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_jamaica_plain", "element_add_class": "highlight"}]'>Jamaica Plain</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mattapan", "element_add_class": "highlight"}]'>Mattapan</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-4">
+					<ul>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mission_hill", "element_add_class": "highlight"}]'>Mission Hill</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_north_end", "element_add_class": "highlight"}]'>North End</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roslindale", "element_add_class": "highlight"}]'>Roslindale</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roxbury", "element_add_class": "highlight"}]'>Roxbury</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_boston", "element_add_class": "highlight"}]'>South Boston</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_end", "element_add_class": "highlight"}]'>South End</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_end", "element_add_class": "highlight"}]'>West End</a></li>
+					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_roxbury", "element_add_class": "highlight"}]'>West Roxbury</a></li>
+					 </ul>
+				</div>
+			</div>
+			<div class="">
+				<div class="col-xs-6">
+					<p>Census data</p>
+					<ul>
+						<li><a data-control data-parse="#set_white">White</a></li>
+						<li><a data-control data-parse="#set_black">Black</a></li>
+						<li><a data-control data-parse="#set_opoc">Other people of color</a></li>
+						<li><a data-control data-parse="#set_poc">All people of color</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-6">
+					<p>Police data</p>
+					<ul>
+						<li><a data-control data-parse="#set_investigations">Drug investigations</a></li>
+						<li><a data-control data-parse="#set_arrests">Drug arrests</a></li>
+						<li><a data-control data-parse="#clear_grid">None</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<p>
+				See more
+				</p>
+				<ul class="faq">
+					<li><a href="https://privacysos.org/frequently-asked-questions-about-the-war-on-drugs#1">Do white people sell or use drugs at lower rates than people of color?</a></li>
+					<li><a href="https://privacysos.org/frequently-asked-questions-about-the-war-on-drugs#2">What explains racial disparities in drug policing?</a></li>
+					<li><a href="https://privacysos.org/frequently-asked-questions-about-the-war-on-drugs#3">Are Boston drug arrests uniquely racially disparate?</a></li> 
+					<li><a href="https://privacysos.org/frequently-asked-questions-about-the-war-on-drugs#4">Do other racial disparities exist in the system?</a></li>
 				</ul>
 			</div>
+			
 		</div>
+		<br/><br/><br/>
 	</div>
 	<div id="fixed">
 		<div id="play_ctrl">
-			<a data-control data-parse="#start_narration">Start</a>
+			<a data-control data-control_scroll="movie" data-scroll_to_previous><img src="img/icons/rewind.png"</a>
+			<a data-control data-parse="#start_narration,#update_narration_ui" class="narration_control_ui"><img src="img/icons/play.png"></a>
+			<a data-control data-parse="#stop_narration,#update_narration_ui" class="narration_control_ui" style="display: none;"><img src="img/icons/play.selected.png"></a>
+			<a data-control data-control_scroll="movie" data-scroll_to_next><img src="img/icons/fast-forward.png"</a>
 		</div>
 		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,grid" data-map_center_lat="42.335128" data-map_center_lon="-71.080549" data-zoom_to="#boston_boston" data-zoom_level="100" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}]'></div>
 	</div>

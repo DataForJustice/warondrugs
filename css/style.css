@@ -92,7 +92,7 @@ ul {
 	margin-bottom: 50vh;
 }
 #movie div p {
-	font-size: 1.5em;
+	font-size: 1.3em;
 	text-align: left;
 	padding: 0.5em;
 	padding-right: 1em;
@@ -130,12 +130,35 @@ ul {
 }
 #play_ctrl { 
 	position: absolute;
-	top: 75%;
-	left: 80%;
-	width: 20%;
+	top: 70%;
+	left: 70%;
+	width: 30%;
 }
 #a_map { 
 	height: 100%;
+}
+#play_ctrl img{ 
+	width: 25px;
+	height: 25px;
+}
+.content { 
+	font-size: 0.5em;
+	padding: 0;
+}
+.content p {
+	margin: 0;
+}
+.content ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+ul.faq { 
+	list-style-type: circle;
+	margin-left: 1.5em;
+}
+.content li  {
+	padding: 0;
 }
 /* CSS for tablets 
 @media (min-width: 768px) {
@@ -175,6 +198,10 @@ ul {
 	}
 	#intro h1 {
 		font-size: 3em;
+	}
+	#play_ctrl img{ 
+		width: 50px;
+		height: 50px;
 	}
 }
 /* CSS for large devices 
