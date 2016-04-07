@@ -71,6 +71,7 @@ ul {
 	max-width: 0 !important;
 	padding: 0;
 	margin: 0;
+	margin-bottom: 100vh;
 }
 #movie > div { 
 	position: relative; 
@@ -120,7 +121,6 @@ ul {
 #fixed {
 	position: fixed;
 	background-color: white;
-	border-top: 2px solid gray;
 	top: 50vh;
 	left: 0;
 	width: 100%;
@@ -130,7 +130,7 @@ ul {
 }
 #play_ctrl { 
 	position: absolute;
-	top: 90%;
+	top: 75%;
 	left: 80%;
 	width: 20%;
 }
