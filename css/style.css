@@ -185,6 +185,9 @@ ul.faq {
 		width: 50vw;
 		font-size: 1.3em;
 	}
+	.content {
+		font-size: 0.9em !important;
+	}
 }
 @media (min-width: 992px) {
 	#movie { 

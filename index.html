@@ -70,7 +70,7 @@
 		<a id="voice_a_g_1" data-control_media="narration" data-media_time="84" data-parse="#recover_status"></a>
 		<a data-subscribe_media="narration" data-subscribe_time="86" data-control_scroll="movie" data-scroll_to="a_h"></a>
 		<a id="voice_h" data-control_media="narration" data-media_time="87" data-parse="#recover_status"></a>
-		<a data-subscribe_media="narration" data-subscribe_time="88" data-media_stop data-parse="#update_narration_ui"></a>
+		<a data-subscribe_media="narration" data-subscribe_time="88" data-media_stop data-parse="#stop_narration,#update_narration_ui"></a>
 
 		<a id="start_timer" data-control data-control_media="timer" data-media_time="0" data-media_play data-control_element="#pause_control" data-element_show></a>
 		<a id="resume_timer" data-control data-control_media="timer" data-media_play></a>
@@ -151,7 +151,7 @@
 		<div id="a_g_1" data-parse="#set_poc,#voice_a_g_1"><p>
 			People of Color
 		</p></div>
-		<div id="a_h" data-parse="#voice_a_h" class="content short_scene">
+		<div id="a_h" data-parse="#voice_a_h" class="content">
 			<p><b>Play with the data</b></p>
 			<a id="reset_neighborhoods" data-control_element=".neighborhood" data-element_remove_class="highlight"></a>
 			<div class="">
@@ -224,7 +224,6 @@
 			</div>
 			
 		</div>
-		<br/><br/><br/>
 	</div>
 	<div id="fixed">
 		<div id="play_ctrl">
