@@ -7,9 +7,16 @@ body {
 	stroke-width: 0.5px;
 	fill: none;
 }
-.map circle {
+.map circle { 
+	fill-opacity: 0;
+}
+.map circle.incidents {
 	stroke: black;
 	stroke-width: 0.5px;
+	fill-opacity: 0.7; 
+}
+.map circle.incidents {
+	
 }
 .boston path { 
 	stroke: gray;
@@ -17,8 +24,9 @@ body {
 .neighborhoods path { 
 	stroke: lightgray;
 }
+.districts path { }
 .neighborhood.highlight { 
-	stroke: red;
+	stroke: purple;
 	stroke-width:  2px;
 	/*
 	fill: rgba(255,0,0,0.3);
@@ -28,8 +36,9 @@ body {
 .opoc.opoc_1 { fill: #feedde; } .opoc.opoc_2 { fill: #fdbe85; } .opoc.opoc_3,.may.opoc_3 { fill: #fd8d3c; } .opoc.opoc_4,.may.opoc_4 { fill: #d94701; }
 .black.black_1 { fill: #f2f0f7; } .black.black_2 { fill: #cbc9e2; } .black.black_3,.may.black_3 { fill: #9e9ac8; } .black.black_4,.may.black_4 { fill: #6a51a3; }
 .poc.poc_1 { fill: #edf8e9; } .poc.poc_2 { fill: #bae4b3; } .poc.poc_3,.may.poc_3 { fill: #74c476; } .poc.poc_4,.may.poc_4 { fill: #238b45; }
-.incidents { fill-opacity: 0.7; }
-.incidents_1 { fill: #fee5d9 !important; } .incidents_2 { fill: #fcae91; } .incidents_3 { fill: #fb6a4a; } .incidents_4 { fill: #cb181d; }
+/*.incidents_1 { fill: #fee5d9 !important; } .incidents_2 { fill: #fcae91; }*/ 
+.incidents_1 { stroke: none !important; fill: none !important; } .incidents_2 { stroke: none !important; fill: none !important; }
+.incidents_3 { fill: #fb6a4a; } .incidents_4 { fill: #cb181d; }
 
 small { display: none; }
 .highlight small { 
