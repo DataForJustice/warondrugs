@@ -18,6 +18,13 @@ body {
 .map circle.incidents {
 	
 }
+.map .roads {
+	fill:none;
+}
+.road.fio_1 { stroke: none !important; display: none;}
+.road.fio_2 { stroke: yellow; }
+.road.fio_3 { sroke: rgb(255,165,0); }
+.road.fio_4 { stroke: red; }
 .boston path { 
 	stroke: gray;
 }
@@ -97,7 +104,7 @@ ul {
 	margin-bottom: 75vh;
 }
 #movie div.last_scene {
-	top: 0;
+	top: 25;
 	margin-bottom: 50vh;
 }
 #movie div p {
@@ -139,7 +146,7 @@ ul {
 }
 #play_ctrl { 
 	position: absolute;
-	top: 70%;
+	top: 80%;
 	left: 70%;
 	width: 30%;
 }
@@ -147,8 +154,8 @@ ul {
 	height: 100%;
 }
 #play_ctrl img{ 
-	width: 25px;
-	height: 25px;
+	width: 25px !important;
+	height: 25px !important;
 }
 .content { 
 	font-size: 0.5em;

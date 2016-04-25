@@ -295,6 +295,9 @@ Ant.prototype = {
 				this.slides [data.control_slide].controller.scrollTo (this.slides [data.control_slide].slides [data.scroll_to]);
 			}
 		}
+		if (data.debug) { 
+			console.log (data.debug);
+		}
 		/*
 		* Other elements to parse
 		*/
@@ -350,11 +353,14 @@ Ant.prototype = {
 		if (data.clear) {
 			var layers = data.clear.split(',');
 			for (var l in layers) {
-				this.quantifyMap (controlChart, layers [l.trim()]);
+				this.quantifyMap (controlChart, layers [l.trim()], {fn: function () { return {"class": ""} } });
 			}
 		}
 		var zoomTo = data.zoom_to;
 		var zoomLevel = data.zoom_level; 
+		if (data.map_center_lat && data.map_center_lon) { 
+			this.charts [controlChart].setCenter ({lat: data.map_center_lat, lon: data.map_center_lon});
+		}
 		if (zoomTo) {
 			this.charts [controlChart].zoomTo (zoomTo, zoomLevel);
 		} else if (zoomLevel) {
@@ -400,7 +406,7 @@ Ant.prototype = {
 			var q = quantifier ? this.conf.quantifiers ["maps"] [quantifier.fn] : null;
 		}
 		var l = this.conf.data [layer];
-		if (!q && quantifier) throw "No quantifier found: " + quantifier.fn;
+		if (!q && quantifier) q = quantifier.fn; 
 		if (!l) throw "No data found: " + layer;
 
 		var qn = quantifier ? {fn: q, context: this, args: quantifier.ar, data: quantifier.data} : null;
@@ -462,6 +468,11 @@ Ant.prototype = {
 		switch (type) {
 			case 'youtube': x = new Popcorn.HTMLYouTubeVideoElement( elm ); break
 			case 'vimeo': x = new Popcorn.HTMLVimeoVideoElement( elm ); break;
+			case 'video': 
+				elm.preload = "auto";
+				var alt = new VideoInLine (elm);
+				if (window.makeVideoPlayableInline !== undefined) { window.makeVideoPlayableInline (elm); } 
+				break;
 			case 'audio': x = "#" + id; break;
 			case 'timer': alt = new Timefy (data.timer_args); break;
 		}
@@ -474,15 +485,15 @@ Ant.prototype = {
 		media.load ();
 		var cb = function (context, obj, elm) { 
 			return function (e) { 
-				var currentSecond = Math.floor (obj.currentTime ());
+				var currentTime = obj.currentTime (), currentSecond = Math.floor (currentTime), millisecond = currentTime - currentSecond, currentMillisecond = Math.floor (millisecond * 10);
+				var parseCb = function (me) { 
+					return function () { 
+						me.parseElement.apply (me, [$(this) [0]]);
+					} 
+				}
 				if (obj.currentSecond != currentSecond) {
 					var every = [1,2,3,4,5,10,15,20,30,40,45,50,55,60];	
 					var trigg = [];
-					var parseCb = function (me) { 
-						return function () { 
-							me.parseElement.apply (me, [$(this) [0]]);
-						} 
-					}
 					for (var i in every) { 
 						if (currentSecond % every [i] === 0) trigg.push (every [i]);
 					}
@@ -491,12 +502,15 @@ Ant.prototype = {
 					}
 					$("[data-subscribe_media='" + elm.id + "'][data-subscribe_time='" + currentSecond + "']").each (parseCb (context));
 					obj.currentSecond = currentSecond;
-
 				}
-
+				$("[data-subscribe_media='" + elm.id + "'][data-subscribe_time='" + currentSecond + "." + currentMillisecond + "']").each (parseCb (context));
 			}
 		}
-		media.on ("timeupdate", cb (this, media, elm));
+		var intervalCb = function (a, media, c, cb) { return function () { media.interval = setInterval.apply (null, [cb (a, media, elm), 100]); } }
+		var removeIntervalCb = function (a,media,c) { return function () { if (media.interval) clearInterval.apply (null, [media.interval]); } }
+		media.on ("play", intervalCb (this, media, elm, cb));
+		media.on ("pause", removeIntervalCb (this,media,elm));
+		//media.on ("timeupdate", cb (this, media, elm));
 		//TODO subscribers for play, stop, etc.
 
 		this.medium [id] = media;
@@ -513,7 +527,7 @@ Ant.prototype = {
 			var obj;
 			if (dChart == "map") {
 				obj  = new ant.charts.map ("#" + id, $(element).width (), $(element).height ());
-				obj.setCenter ({lat: data.map_center_lat, lon: data.map_center_lon});
+			//	obj.setCenter ({lat: data.map_center_lat, lon: data.map_center_lon});
 				// TODO fix this following lines: the layers should be drawn by the quantifier.
 				if (data.map_layers) { 
 					var layers = data.map_layers.split (',');
@@ -521,6 +535,7 @@ Ant.prototype = {
 						var l = this.conf.data [layers [a]];
 						var plot = l.plot ? l.plot : "lines";
 						var topo = obj.addFeatures (l.id, this.data [l.id], l.key); 
+						// TODO FIX THIS.. it is needed for when using points layers.
 						topo.redraw (this.setFeatureId (l), null, plot)
 					}
 				}
@@ -637,6 +652,44 @@ Timefy.prototype = {
 		for (cb in this.callbacks [ev]) {
 			var x = this.callbacks [ev] [cb];
 			if (x) x (); //TODO check scopes;
+		}
+	}
+}
+function VideoInLine (vid) { 
+	this.init (vid);
+	return this;
+}
+VideoInLine.prototype = {
+	constructor: VideoInLine,
+	_element: null,
+	_tic: -1,
+	init: function (vid) { 
+		this.callbacks = {};
+		this._element = vid;
+	},
+	load: function () { this._element.load (); },
+	play: function () { 
+		this._element.play ();
+	},
+	pause: function () { 
+		this._element.pause ();
+	},
+	stop: function () { 
+		this._element.pause ();
+	},
+	currentTime: function (tic) { if (tic !== undefined) { this._element.currentTime = tic; } return this._element.currentTime; },
+	muted: function () { 
+	},
+	callbacks: {},
+	on: function (ev, cb) { 
+		//this._element.addEventListener (ev, function (me) { return function () { cb.apply (me, arguments); } } (this));
+		this._element.addEventListener (ev, cb);
+	},
+	callback: function (ev) { 
+		if (!this.callbacks [ev]) return;
+		for (cb in this.callbacks [ev]) {
+			var x = this.callbacks [ev] [cb];
+			if (x) x ();
 		}
 	}
 }
@@ -951,7 +1004,7 @@ asChart.call (ant.charts.lines.prototype);
 asLines.call (ant.charts.lines.prototype);
 //TODO refactor this.. :)
 ant.charts.map = function (container, width, height) {
-	this.scale = 200000;
+	this.scale = 1;
 	this.translate = [width / 2, height / 2];
 	this.refCenter = [.5, .5];
 	this.translate = [width * this.refCenter [0], height * this.refCenter [1]]; 
@@ -1035,7 +1088,7 @@ ant.charts.map = function (container, width, height) {
 		this.svg.selectAll (selector).classed (cls, true);
 	}
 	this.zoomTo = function (selector, context) {
-		if (!context) context = this.context 
+		if (!context) context = this.zoomContext 
 		var e = this.svg.selectAll (selector);
 		if (!e) throw "No element found: " + selector;
 		this.zoomSelector = selector;
@@ -1043,6 +1096,20 @@ ant.charts.map = function (container, width, height) {
 		var path = this.getPath ();
 		var width = this.width;
 		var height = this.height;
+		var bounds = [], dx = [], dy = [], x = [], y = [];
+		var dat = e.data ();
+		for (var i in dat) { 
+			var data = dat [i];
+			var bn = path.bounds (data);
+			bounds.push (bn);
+			dx.push (bn [1][0] - bn [0][0]);
+			dy.push (bn [1][1] - bn [0][1]);
+			x.push ((bn [0][0] + bn [1][0]) / 2);
+			y.push ((bn [0][1] + bn [1][1]) / 2)
+		}
+		var scale = (context / 100) / Math.max (Math.max.apply (null, dx), Math.max.apply (null, dy)),
+			translate = [width * this.refCenter [0] - scale * Math.max.apply (null, x), height * this.refCenter [1] - scale * Math.max.apply (null, y)];
+		/*
 		var bounds = path.bounds(e.datum ()),
 			dx = bounds[1][0] - bounds[0][0],
 			dy = bounds[1][1] - bounds[0][1],
@@ -1050,6 +1117,7 @@ ant.charts.map = function (container, width, height) {
 			y = (bounds[0][1] + bounds[1][1]) / 2,
 			scale = (context / 100) / Math.max(dx / width, dy / height),
 			translate = [width * this.refCenter [0] - scale * x, height * this.refCenter [1] - scale * y];
+		*/
 
 		this.svg
 			.selectAll ("path")
@@ -1072,7 +1140,7 @@ ant.charts.map = function (container, width, height) {
 			if (features) {
 				this.svg.append ("g")
 					.attr ("class", topo);
-				this.topologies [topo] = new ant.charts.map.topology (this.svg, topo, this.getPath (), collection, features);
+				this.topologies [topo] = new ant.charts.map.topology (this, topo, collection, features);
 				this.redraw (topo, quantifier, plot);
 
 				return this.topologies [topo];
@@ -1085,17 +1153,16 @@ ant.charts.map = function (container, width, height) {
 	}
 	return this;
 };
-ant.charts.map.topology = function (cont, name, path, t, f) {
-	this.container = cont;
+ant.charts.map.topology = function (map,name, t, f) {
+	this.parentMap = map;
 	this.name = name;
 	this.topology = t;
 	this.features = f;
-	this.path = path;
 	this.redraw = function (setId, quantifier, plot) {
 		this.callbacks = {};
 		if (!plot) plot = "lines";
-		this.container.select ("g." + this.name).selectAll ("text").remove ();
-		var path = this.path;
+		this.parentMap.svg.select ("g." + this.name).selectAll ("text").remove ();
+		var path = this.parentMap.getPath ();
 		
 		var qn = quantifier ? $.proxy (
 				function (selector, d, plot) {  
@@ -1129,10 +1196,10 @@ ant.charts.map.topology = function (cont, name, path, t, f) {
 						}
 					}
 				},
-			quantifier) : function (selector, d) { selector.attr ("class", ""); };
+			quantifier) : function (selector, d) { };
 
 		if (plot == "lines") {
-			this.container.select ("g." + this.name).selectAll ("path")
+			this.parentMap.svg.select ("g." + this.name).selectAll ("path")
 				.data (topojson.feature (this.topology, this.features).features)
 				.each (function (d) { qn (d3.select (this), d, plot); })
 				.attr ("id", setId)
@@ -1144,7 +1211,7 @@ ant.charts.map.topology = function (cont, name, path, t, f) {
 				.on ("mouseout", this.createCallback ("mouseout"))
 		}
 		if (plot == "points") {
-			this.container.select ("g." + this.name).selectAll ("circle")
+			this.parentMap.svg.select ("g." + this.name).selectAll ("circle")
 				.data (topojson.feature (this.topology, this.features).features)
 				.each (function (d) { qn (d3.select (this), d, plot); }) 
 				.attr ("id", setId)
@@ -1230,7 +1297,7 @@ Scenify.prototype = {
 		$(this.selector).children ().each ($.proxy (function (index, child) {
 			var sceneElement = $(child);
 			var sceneData = sceneElement.data ();
-			var hook = sceneData.scene_trigger ? sceneData.scene_trigger : 0.15;
+			var hook = sceneData.trigger_position ? sceneData.trigger_position : 0.15;
 			var scene = new ScrollMagic.Scene ({triggerElement: child, tweenChanges: true, duration: sceneElement.height ()})
 					.triggerHook (hook)
 					//.addIndicators ()
