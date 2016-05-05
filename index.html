@@ -156,7 +156,6 @@
 		</p></div>
 		<div id="rac_lines" data-parse="#set_may,#voice_rac_lines"><p>
 			As you can see, the city is racially segregated.
-		<!--Unfortunately, it’s not just that people are separated along stark, racial lines. We also have an inequality problem and one example of it is policing related to drugs.-->
 		</p></div>
 		<div id="a_a" data-parse="#voice_a_a"><p>
 		Using data from the City of Boston’s <a href="http://data.cityofboston.gov/">open data portal</a>, combined with census data showing racial segregation, we are able to show where Boston police officers perform stop and frisks and fight the war on drugs.
@@ -188,44 +187,58 @@
 		<div id="a_h" data-parse="#voice_a_h" class="content last_scene">
 			<p><b>Play with the data</b></p>
 			<a id="reset_neighborhoods" data-control_element=".neighborhood" data-element_remove_class="highlight"></a>
-			<div class="">
-				<p>Neighborhoods</p>
-				<div class="col-xs-4">
-					<ul>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_allston_brighton", "element_add_class": "highlight"}]'>Allston/Brighton</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_back_bay", "element_add_class": "highlight"}]'>Back Bay</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_bay_village", "element_add_class": "highlight"}]'>Bay Village</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_beacon_hill", "element_add_class": "highlight"}]'>Beacon Hill</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_charlestown", "element_add_class": "highlight"}]'>Charlestown</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_chinatown", "element_add_class": "highlight"}]'>Chinatown</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_financial_district_downtown", "element_add_class": "highlight"}]'>Downtown</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_dorchester", "element_add_class": "highlight"}]'>Dorchester</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-4">
-					<ul>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_east_boston", "element_add_class": "highlight"}]'>East Boston</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_fenway_kenmore", "element_add_class": "highlight"}]'>Fenway/Kenmore</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_government_center", "element_add_class": "highlight"}]'>Government Center</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_harbor_islands", "element_add_class": "highlight"}]'>Harbor Islands</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_hyde_park", "element_add_class": "highlight"}]'>Hyde Park</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_jamaica_plain", "element_add_class": "highlight"}]'>Jamaica Plain</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mattapan", "element_add_class": "highlight"}]'>Mattapan</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-4">
-					<ul>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_mission_hill", "element_add_class": "highlight"}]'>Mission Hill</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_north_end", "element_add_class": "highlight"}]'>North End</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roslindale", "element_add_class": "highlight"}]'>Roslindale</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_roxbury", "element_add_class": "highlight"}]'>Roxbury</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_boston", "element_add_class": "highlight"}]'>South Boston</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_south_end", "element_add_class": "highlight"}]'>South End</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_end", "element_add_class": "highlight"}]'>West End</a></li>
-					 <li><a data-control data-parse='[{"parse": "#reset_neighborhoods"}, {"control_element": ".neighborhood_west_roxbury", "element_add_class": "highlight"}]'>West Roxbury</a></li>
-					 </ul>
-				</div>
-			</div>
+			<a id="highlight_allston_brighton" data-control_element=".neighborhood_allston_brighton" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_allston_brighton"></a>
+			<a id="highlight_back_bay" data-control_element=".neighborhood_back_bay" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_back_bay"></a>
+			<a id="highlight_bay_village" data-control_element=".neighborhood_bay_village" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_bay_village"></a>
+			<a id="highlight_beacon_hill" data-control_element=".neighborhood_beacon_hill" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_beacon_hill"></a>
+			<a id="highlight_charlestown" data-control_element=".neighborhood_charlestown" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_charlestown"></a>
+			<a id="highlight_chinatown" data-control_element=".neighborhood_chinatown" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_chinatown"></a>
+			<a id="highlight_downtown" data-control_element=".neighborhood_downtown" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_downtown"></a>
+			<a id="highlight_dorchester" data-control_element=".neighborhood_dorchester" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_dorchester"></a>
+			<a id="highlight_east_boston" data-control_element=".neighborhood_east_boston" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_east_boston"></a>
+			<a id="highlight_fenway_kenmore" data-control_element=".neighborhood_fenway_kenmore" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_fenway_kenmore"></a>
+			<a id="highlight_government_center" data-control_element=".neighborhood_government_center" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_government_center"></a>
+			<a id="highlight_harbor_islands" data-control_element=".neighborhood_harbor_islands" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_harbor_islands"></a>
+			<a id="highlight_hyde_park" data-control_element=".neighborhood_hyde_park" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_hyde_park"></a>
+			<a id="highlight_jamaica_plain" data-control_element=".neighborhood_jamaica_plain" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_jamaica_plain"></a>
+			<a id="highlight_mattapan" data-control_element=".neighborhood_mattapan" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_mattapan"></a>
+			<a id="highlight_mission_hill" data-control_element=".neighborhood_mission_hill" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_mission_hill"></a>
+			<a id="highlight_north_end" data-control_element=".neighborhood_north_end" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_north_end"></a>
+			<a id="highlight_roslindale" data-control_element=".neighborhood_roslindale" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_roslindale"></a>
+			<a id="highlight_roxbury" data-control_element=".neighborhood_roxbury" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_roxbury"></a>
+			<a id="highlight_south_boston" data-control_element=".neighborhood_south_boston" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_south_boston"></a>
+			<a id="highlight_south_end" data-control_element=".neighborhood_south_end" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_allston_brigthon"></a>
+			<a id="highlight_west_end" data-control_element=".neighborhood_west_end" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_west_end"></a>
+			<a id="highlight_west_roxbury" data-control_element=".neighborhood_west_roxbury" data-element_add_class="highlight" data-control_chart="a_map" data-zoom_to=".neighborhood_west_roxbury"></a>
+
+			<form>
+				<select data-control>
+					<option>- select a neighborhood -</option>
+					<option data-parse="#reset_neighborhoods,#highlight_allston_brighton">Allston/Brighton</option>
+					<option data-parse="#reset_neighborhoods,#highlight_back_bay">Back Bay</option>
+					<option data-parse="#reset_neighborhoods,#highlight_bay_village">Bay Village</option>
+					<option data-parse="#reset_neighborhoods,#highlight_beacon_hill">Beacon Hill</option>
+					<option data-parse="#reset_neighborhoods,#highlight_charlestown">Charlestown</option>
+					<option data-parse="#reset_neighborhoods,#highlight_chinatown">Chinatown</option>
+					<option data-parse="#reset_neighborhoods,#highlight_downtown">Downtown</option>
+					<option data-parse="#reset_neighborhoods,#highlight_dorchester">Dorchester</option>
+					<option data-parse="#reset_neighborhoods,#highlight_east_boston">East Boston</option>
+					<option data-parse="#reset_neighborhoods,#highlight_fenway_kenmore">Fenway/Kenmore</option>
+					<option data-parse="#reset_neighborhoods,#highlight_government_center">Government Center</option>
+					<option data-parse="#reset_neighborhoods,#highlight_harbor_islands">Harbor Islands</option>
+					<option data-parse="#reset_neighborhoods,#highlight_hyde_park">Hyde Park</option>
+					<option data-parse="#reset_neighborhoods,#highlight_jamaica_plain">Jamaica Plain</option>
+					<option data-parse="#reset_neighborhoods,#highlight_mattapan">Mattapan</option>
+					<option data-parse="#reset_neighborhoods,#highlight_mission_hill">Mission Hill</option>
+					<option data-parse="#reset_neighborhoods,#highlight_north_end">North End</option>
+					<option data-parse="#reset_neighborhoods,#highlight_roslindale">Roslindale</option>
+					<option data-parse="#reset_neighborhoods,#highlight_roxbury">Roxbury</option>
+					<option data-parse="#reset_neighborhoods,#highlight_south_boston">South Boston</option>
+					<option data-parse="#reset_neighborhoods,#highlight_south_end">South End</option>
+					<option data-parse="#reset_neighborhoods,#highlight_west_end">West End</option>
+					<option data-parse="#reset_neighborhoods,#highlight_west_roxbury">West Roxbury</option>
+				</select>
+			</form>
 			<div class="">
 				<div class="col-xs-4">
 					<p>Census data</p>
@@ -275,7 +288,7 @@
 			<a data-control data-parse="#stop_narration,#update_narration_ui" class="narration_control_ui" style="display: none;"><img src="img/icons/play.selected.png"></a>
 			<a data-control data-control_scroll="movie" data-scroll_to_next><img src="img/icons/fast-forward.png"></a>
 		</div>
-		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,roads,grid" data-map_center_lat="42.330128" data-map_center_lon="-71.067549" data-zoom_level="107000" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}, {"control_chart": "world_map", "zoom_to": "#boston_boston", "debug": "Zooming in"}]'></div>
+		<div class="map" id="a_map" data-chart="map" data-map_layers="boston,blockgroups,neighborhoods,districts,roads,grid" data-map_center_lat="42.330128" data-map_center_lon="-71.067549" data-zoom_level="107000" data-quantify="blockgroups" data-quantifier="categorize" data-quantifier_args="blockgroups" data-parse='[{"control_chart": "a_map", "quantify": "neighborhoods", "quantifier": "categorize", "quantifier_args": "neighborhoods"}, {"control_chart": "a_map", "zoom_to": ".boston path", "debug": "Zooming in"}]'></div>
 	</div>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/wod.js"></script>
